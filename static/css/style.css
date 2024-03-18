@@ -1,0 +1,46 @@
+body {
+    background-color: #343a40 ;
+    color: #ffffff;
+}
+
+#footer {
+    background-color: #232427;
+}
+
+article {
+    color: #fff; 
+    background-color: #4f565e !important;
+}
+
+#search-button{
+    background-color: #4f565e;
+    color: #fff ;
+}
+
+input {
+    color: lightgoldenrodyellow !important;
+    background-color: #4f565e !important;
+}
+
+input::placeholder {
+    color: rgba(250, 250, 210, 0.767) !important;
+}
+
+a{
+    color: lightgoldenrodyellow;
+}
+
+a:hover{
+    color: lightgoldenrodyellow;
+}
+
+.page-link {
+    color: lightgoldenrodyellow; 
+    background-color: #4f565e; 
+}
+
+.page-link:hover {
+    color: lightgoldenrodyellow; 
+    background-color: #232427; 
+}
+
