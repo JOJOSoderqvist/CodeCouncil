@@ -5,16 +5,19 @@ body {
 
 #footer {
     background-color: #232427;
+
 }
 
 article {
     color: #fff; 
     background-color: #4f565e !important;
+    /* border-color: rgb(206, 212, 218) in !important; */
 }
 
 #search-button{
     background-color: #4f565e;
     color: #fff ;
+    border-color: rgb(206, 212, 218);
 }
 
 input {
@@ -37,6 +40,7 @@ a:hover{
 .page-link {
     color: lightgoldenrodyellow; 
     background-color: #4f565e; 
+    border-color: rgb(206, 212, 218);
 }
 
 .page-link:hover {
@@ -44,3 +48,28 @@ a:hover{
     background-color: #232427; 
 }
 
+.page-item{
+    border-color:  rgb(206, 212, 218) !important;
+}
+
+textarea {
+    height: 400px;
+    resize: none;
+}
+
+.form-control {
+    color: #fff !important;
+    background-color: #4f565e !important;
+}
+
+#ask-button{
+    background-color: #4f565e;
+    color:lightgoldenrodyellow;
+    border-color: rgb(206, 212, 218);
+    width: 74px;
+}
+
+#inputGroup-sizing-lg{
+    background-color: #4f565e;
+    color: lightgoldenrodyellow ;
+}
