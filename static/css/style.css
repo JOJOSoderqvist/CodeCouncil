@@ -1,6 +1,7 @@
 body {
     background-color: #343a40 ;
     color: #ffffff;
+    padding-top: 70px;
 }
 
 #footer {
@@ -14,7 +15,6 @@ body {
 article {
     color: #fff; 
     background-color: #4f565e !important;
-    /* border-color: rgb(206, 212, 218) in !important; */
 }
 
 #search-button{
