@@ -76,3 +76,9 @@ textarea {
     background-color: #4f565e;
     color: lightgoldenrodyellow ;
 }
+
+#upload-avatar-button{
+    background-color: #4f565e;
+    color: lightgoldenrodyellow ;
+    border-color: rgb(206, 212, 218);
+}
