@@ -12,6 +12,11 @@ body {
     width: 100%;
 }
 
+*:focus {
+    box-shadow: none !important;
+    border-color: lightgoldenrodyellow !important;
+}
+
 article {
     color: #fff; 
     background-color: #4f565e !important;
@@ -71,8 +76,8 @@ textarea {
     border-color: rgb(206, 212, 218);
     width: 74px;
 }
-
-#inputGroup-sizing-lg{
+ 
+#inputGroup-sizing-lg, #inputGroup-sizing{
     background-color: #4f565e;
     color: lightgoldenrodyellow ;
 }
@@ -81,4 +86,31 @@ textarea {
     background-color: #4f565e;
     color: lightgoldenrodyellow ;
     border-color: rgb(206, 212, 218);
+}
+
+#main-question {
+    background-color: #343a40 !important;
+    border: none;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background-color: #fff; /* ???? */
+}
+
+.form-check {
+    padding-top: 21px;
+    padding-left: 35px;
+}
+
+.card-body {
+    padding-top: 9px;
+}
+.form-check-input{
+    color: lightgoldenrodyellow !important;
+    border-color: #fff;
+}
+.form-check-input:checked {
+    border-color: lightgoldenrodyellow;
 }
