@@ -1,15 +1,17 @@
+
+
 body {
     background-color: #343a40 ;
     color: #ffffff;
     padding-top: 70px;
+    min-height: 100vh;
 }
 
 #footer {
     background-color: #232427;
-    position: fixed;
-    left: 0;
     bottom: 0;
     width: 100%;
+    position: absolute;
 }
 
 *:focus {
@@ -56,6 +58,11 @@ a:hover{
     background-color: #232427; 
 }
 
+.page-link:visited {
+    background-color: #4f565e; 
+    color: lightgoldenrodyellow;
+}
+
 .page-item{
     border-color:  rgb(206, 212, 218) !important;
 }
@@ -82,7 +89,7 @@ textarea {
     color: lightgoldenrodyellow ;
 }
 
-#upload-avatar-button, #register-button {
+#upload-avatar-button, #register-button, #answer-button {
     background-color: #4f565e;
     color: lightgoldenrodyellow ;
     border-color: rgb(206, 212, 218);
@@ -113,4 +120,8 @@ hr {
 }
 .form-check-input:checked {
     border-color: lightgoldenrodyellow;
+}
+
+#answer-button:hover, #register-button:hover, #upload-avatar-button:hover, #ask-button:hover {
+    background-color: #232427;
 }
