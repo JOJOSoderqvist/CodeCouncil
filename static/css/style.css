@@ -4,15 +4,8 @@ body {
     background-color: #343a40 ;
     color: #ffffff;
     padding-top: 70px;
-    min-height: 100vh;
 }
 
-#footer {
-    background-color: #232427;
-    bottom: 0;
-    width: 100%;
-    position: absolute;
-}
 
 *:focus {
     box-shadow: none !important;
