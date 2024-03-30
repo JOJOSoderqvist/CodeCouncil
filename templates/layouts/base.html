@@ -1,12 +1,14 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
+
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Ask Me!</title>
-    <link rel='stylesheet' href='../node_modules/bootstrap/dist/css/bootstrap.css'>
-    <link rel='stylesheet' href='../static/css/style.css'>
+    <link rel='stylesheet' href="{% static 'dist/css/bootstrap.min.css' %}">
+    <link rel='stylesheet' href="{% static 'css/style.css' %}"> 
 </head>
 
 <body>
@@ -17,32 +19,20 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                 <button class="btn btn-outline-light" type="submit" id="search-button">Search</button>
             </form>
-
-            <div class="d-flex justify-content-between gap-3 me-4">
-                <div class="border">
-                    <img src="img.jpg" width="50" height="50" />
-                </div>
-                <div class="d-flex flex-column justify-content-between">
-                    <a href="/profile.html">Username</a>
-                    <a href="/logout.html">Log out</a>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-between gap-3">
-                <div class="justify-content-center">
-                    <a href="/regiter.html">Register</a>
-                </div>
-            </div>
+            {% block login_state %}
+            {% endblock login_state %}
         </div>
     </nav>
 
     <main class="container-fluid container-lg mt-3">
         <div class="d-flex gap-3 align-items-center mb-3">
-            <h2>TEMPLATE HEADER</h2>
+            {% block page_title %}
+            {% endblock page_title %}
         </div>
         <div class="row">
             <div class="col-8">
-               <p>TEMPLATE CONTENT</p>
+               {% block content %}
+               {% endblock %}
             </div>
             <div class="col-4">
                 <h3>Popular Tags</h3>
@@ -80,6 +70,6 @@
             </div>
         </div>
     </main>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="{% static 'dist/js/bootstrap.min.js' %}"></script>
 </body>
 </html>
