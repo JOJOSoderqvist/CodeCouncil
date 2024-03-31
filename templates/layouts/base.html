@@ -30,11 +30,12 @@
             {% endblock page_title %}
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="{% block left_column_class %}col-8{% endblock left_column_class %}">
                {% block content %}
                {% endblock %}
             </div>
-            <div class="col-4">
+            <div class="{% block right_column_class %}col-4{% endblock right_column_class %}" 
+            style="{% block right_column_styling %}{% endblock right_column_styling %}" >
                 <h3>Popular Tags</h3>
                 <div class="row">
                     <div class="col">

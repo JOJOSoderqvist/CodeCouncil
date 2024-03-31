@@ -5,6 +5,8 @@
                 <a class="page-link" href="
                 {% if question_id %}
                     {% url page_name question_id %}?page={{pages.previous_page_number}}
+                {% elif tag_name %}
+                    {% url page_name tag_name %}?page={{pages.previous_page_number}}
                 {% else %}
                     {% url page_name %}?page={{pages.previous_page_number}}
                 {% endif %}" aria-label="Previous">
@@ -15,6 +17,8 @@
         <li class="page-item"><a class="page-link" href="
             {% if question_id %}
                 {% url page_name question_id %}?page=1
+            {% elif tag_name %}
+                {% url page_name tag_name %}?page=1
             {% else %}
                 {% url page_name %}?page=1
             {% endif %}">1</a></li>
@@ -25,6 +29,8 @@
         <li class="page-item"><a class="page-link" href="
             {%if question_id %} 
                 {% url page_name question_id %}?page={{pages.paginator.num_pages}} 
+            {% elif tag_name %}
+                {% url page_name tag_name %}?page={{pages.paginator.num_pages}} 
             {% else %} 
                 {% url page_name %}?page={{pages.paginator.num_pages}}
             {% endif %}">{{pages.paginator.num_pages}}</a></li>
@@ -33,7 +39,9 @@
                 <a class="page-link" href="
                 {%if question_id %} 
                     {% url page_name question_id %}?page={{pages.next_page_number}}
-                {% else %}
+                {% elif tag_name %}
+                    {% url page_name tag_name %}?page={{pages.next_page_number}} 
+                {% else %} 
                     {% url page_name %}?page={{pages.next_page_number}}
                 {% endif %}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
