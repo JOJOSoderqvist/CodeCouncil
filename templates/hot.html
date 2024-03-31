@@ -22,4 +22,5 @@
     {% for question in questions %}
         {% include "layouts/single_question.html" %}
     {% endfor %}
+    {%include "layouts/pagination.html" with pages=questions %}
 {% endblock content %}

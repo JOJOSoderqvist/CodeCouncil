@@ -14,20 +14,28 @@ QUESTIONS = [
 
 ANSWERS = [
     {
+        'id': i,
         'text': f"This is an answer {i}",
     } for i in range(10)
 ]
 
 
-def index(request):
+def paginator(object_list, request, elems_per_page=5):
     page_num = request.GET.get('page', 1)
-    paginator = Paginator(QUESTIONS, 5)
+    paginator = Paginator(object_list, elems_per_page)
     pages = paginator.get_page(page_num)
+    return pages
+
+def index(request):
+    pages = paginator(QUESTIONS, request)
     return render(request, 'index.html', {'questions': pages, 'page_name': 'index'})
 
 def hot(request):
-    return render(request, 'hot.html', {'questions': QUESTIONS[::-1]})
+    reversed_question = QUESTIONS[::-1]
+    pages = paginator(reversed_question, request)
+    return render(request, 'hot.html', {'questions': pages, 'page_name': 'hot'})
 
 def question(request, question_id):
     single_question = QUESTIONS[question_id]
-    return render(request, 'question.html', {'question': single_question, 'answers': ANSWERS})
+    pages = paginator(ANSWERS, request)
+    return render(request, 'question.html', {'question': single_question, 'answers': pages, 'page_name': 'question', 'question_id': str(question_id)})

@@ -23,5 +23,5 @@ urlpatterns = [
     path('', include('app.urls'), name='index'),
     path('hot/', views.hot, name='hot'),
     path('admin/', admin.site.urls),
-    path('question/<int:question_id>', views.question, name='question'),
+    path('question/<int:question_id>/', views.question, name='question'),
 ]
