@@ -59,4 +59,5 @@ def tag(request, tag_name):
     pages = paginator(QUESTIONS, request)
     return render(request, 'tag.html', {'questions': pages, 'page_name': 'tag', 'tag_name': tag_name})
      
-
+def profile(request):
+    return render(request, 'profile.html')

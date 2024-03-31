@@ -28,4 +28,5 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('ask/', views.ask, name='ask'),
     path('tag/<str:tag_name>/', views.tag, name='tag'),
+    path('profile/', views.profile, name='profile'),
 ]
