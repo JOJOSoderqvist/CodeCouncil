@@ -20,7 +20,9 @@ ANSWERS = [
 ]
 
 def paginator(object_list, request, elems_per_page=5):
-    page_num = request.GET.get('page', 1)
+    page_num = request.GET.get('page', 1) 
+    if page_num < '1':
+        page_num = '1'
     paginator = Paginator(object_list, elems_per_page)
     pages = paginator.get_page(page_num)
     return pages
