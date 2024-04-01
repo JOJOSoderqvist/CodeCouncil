@@ -48,7 +48,7 @@ def register(request):
 def ask(request):
     return render(request, 'ask.html')
 
-def tag(request, tag_name):
+def tag(request):
     pages = paginator(QUESTIONS, request)
         
      
