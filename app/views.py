@@ -19,13 +19,6 @@ ANSWERS = [
     } for i in range(10)
 ]
 
-TAGS = [
-    {
-        'id': i,
-        'name': f"Tag {i}"
-    } for i in range(10)
-]
-
 def paginator(object_list, request, elems_per_page=5):
     page_num = request.GET.get('page', 1)
     paginator = Paginator(object_list, elems_per_page)
@@ -34,17 +27,17 @@ def paginator(object_list, request, elems_per_page=5):
 
 def index(request):
     pages = paginator(QUESTIONS, request)
-    return render(request, 'index.html', {'questions': pages, 'page_name': 'index'})
+    return render(request, 'index.html', {'questions': pages})
 
 def hot(request):
     reversed_question = QUESTIONS[::-1]
     pages = paginator(reversed_question, request)
-    return render(request, 'hot.html', {'questions': pages, 'page_name': 'hot'})
+    return render(request, 'hot.html', {'questions': pages})
 
 def question(request, question_id):
     single_question = QUESTIONS[question_id]
     pages = paginator(ANSWERS, request)
-    return render(request, 'question.html', {'question': single_question, 'answers': pages, 'page_name': 'question', 'question_id': str(question_id)})
+    return render(request, 'question.html', {'question': single_question, 'answers': pages})
 
 def login(request):
     return render(request, 'login.html')
@@ -57,7 +50,7 @@ def ask(request):
 
 def tag(request, tag_name):
     pages = paginator(QUESTIONS, request)
-    return render(request, 'tag.html', {'questions': pages, 'page_name': 'tag', 'tag_name': tag_name})
+        
      
 def profile(request):
     return render(request, 'profile.html')
