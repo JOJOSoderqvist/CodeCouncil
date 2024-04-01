@@ -54,3 +54,6 @@ def tag(request, tag_name):
      
 def profile(request):
     return render(request, 'profile.html')
+
+def logout(request):
+    return render(request, 'login.html')
