@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 
@@ -21,8 +21,11 @@ ANSWERS = [
 
 def paginator(object_list, request, elems_per_page=5):
     page_num = request.GET.get('page', 1) 
-    if page_num < '1':
-        page_num = '1'
+    try: 
+        page_num = max(1, int(page_num))
+    except ValueError:
+        page_num = 1
+        
     paginator = Paginator(object_list, elems_per_page)
     pages = paginator.get_page(page_num)
     return pages
@@ -58,4 +61,5 @@ def profile(request):
     return render(request, 'profile.html')
 
 def logout(request):
-    return render(request, 'login.html')
+    return redirect('/login')
+
