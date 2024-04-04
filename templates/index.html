@@ -1,8 +1,16 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 
+
+{% block ask_button_state %}
+{% endblock ask_button_state %}
+
 {% block login_state %}
+
 <div class="d-flex justify-content-between gap-3 me-4">
+    <div class="d-flex justify-content-center me-4">
+        <button class="btn btn-outline-light" type="button" id="ask-question-button">Ask!</button>           
+    </div>
     <div class="border">
         <img src={% static 'img/img2.jpg'%} width="50" height="50" />
     </div>
