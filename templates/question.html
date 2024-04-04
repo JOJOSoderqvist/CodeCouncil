@@ -18,7 +18,7 @@
     {% for answer in answers %}
         {% include "layouts/answer.html"%}
     {% endfor %}
-    {%include "layouts/pagination.html" with pages=answers%}
+    {% include "layouts/pagination.html" with pages=answers %}
     <hr>
     <div class="input-group input-group-lg mb-3 mx-auto" style="max-width: 80%;">
         <span class="input-group-text" id="inputGroup-sizing-lg"
