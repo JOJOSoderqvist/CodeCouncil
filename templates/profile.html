@@ -2,6 +2,9 @@
 {% load static %}
 {% block login_state %}
     <div class="d-flex justify-content-between gap-3 me-4">
+        <div class="d-flex justify-content-center me-4">
+            <a class="btn btn-outline-light" href="{% url "ask" %}" style="padding-top: 13px" >Ask!</a>           
+        </div>
         <div class="border">
             <img src="{% static "img/img2.jpg" %}" width="50" height="50" />
         </div>
