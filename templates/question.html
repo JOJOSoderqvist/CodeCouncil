@@ -1,32 +1,32 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 {% block login_state %}
-<div class="d-flex justify-content-between gap-3 me-4">
-    <div class="d-flex justify-content-center me-4">
-        <a class="btn btn-outline-light" href="{% url "ask" %}" style="padding-top: 13px" >Ask!</a>           
+    <div class="d-flex justify-content-between gap-3 me-4">
+        <div class="d-flex justify-content-center me-4">
+            <a class="btn btn-outline-light" href="{% url "ask" %}" style="padding-top: 13px">Ask!</a>
+        </div>
+        <div class="border">
+            <img src={% static 'img/img2.jpg' %} width="50" height="50"/>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+            <a href="{% url "profile" %}">Username</a>
+            <a href="{% url "logout" %}">Log out</a>
+        </div>
     </div>
-    <div class="border">
-        <img src={% static 'img/img2.jpg'%} width="50" height="50" />
-    </div>
-    <div class="d-flex flex-column justify-content-between">
-        <a href="{% url "profile" %}">Username</a>
-        <a href="{% url "logout" %}">Log out</a>
-    </div>
-</div>
 {% endblock login_state %}
 
 {% block content %}
-    {% include "layouts/single_question.html"%}
+    {% include "layouts/single_question.html" %}
     <hr>
     {% for answer in answers %}
-        {% include "layouts/answer.html"%}
+        {% include "layouts/answer.html" %}
     {% endfor %}
     {% include "layouts/pagination.html" with pages=answers %}
     <hr>
     <div class="input-group input-group-lg mb-3 mx-auto" style="max-width: 80%;">
         <span class="input-group-text" id="inputGroup-sizing-lg"
-            style="padding-left: 19px; padding-right: 19px;">Type <br> your <br> answer</span>
-        <textarea type="text" class="form-control" style="height: 150px;" ></textarea>
+              style="padding-left: 19px; padding-right: 19px;">Type <br> your <br> answer</span>
+        <textarea type="text" class="form-control" style="height: 150px;"></textarea>
         <button class="btn btn-primary" type="submit" id="answer-button">Answer</button>
     </div>
 {% endblock content %}

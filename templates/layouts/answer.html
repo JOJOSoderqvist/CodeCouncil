@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 
 <article class="card mb-3 w-100 mt-4 mx-auto" style="max-width: 80%; max-height: 80%;">
     <div class="row g-0">
@@ -7,13 +7,13 @@
                 <img src="{% static 'img/img.jpg' %}" class="img-fluid" alt="...">
             </div>
             <div class="input-group flex-nowrap">
-                <input type="number" value="5" class="form-control" />
+                <input type="number" value="5" class="form-control"/>
             </div>
         </div>
         <div class="col">
             <div class="card-body">
                 <p class="answer-card-text">
-                    {{answer.text}}
+                    {{ answer.text }}
                 </p>
                 <div class="row">
                     <div class="form-check">

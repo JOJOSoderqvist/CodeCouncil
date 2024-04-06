@@ -3,10 +3,10 @@
 {% block login_state %}
     <div class="d-flex justify-content-between gap-3 me-4">
         <div class="d-flex justify-content-center me-4">
-            <a class="btn btn-outline-light" href="{% url "ask" %}" style="padding-top: 13px" >Ask!</a>           
+            <a class="btn btn-outline-light" href="{% url "ask" %}" style="padding-top: 13px">Ask!</a>
         </div>
         <div class="border">
-            <img src="{% static "img/img2.jpg" %}" width="50" height="50" />
+            <img src="{% static "img/img2.jpg" %}" width="50" height="50"/>
         </div>
         <div class="d-flex flex-column justify-content-between">
             <a href="{% url "profile" %}">Username</a>
@@ -27,24 +27,25 @@
     <div class="d-flex flex-column">
         <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                style="padding-left: 45.2px; padding-right: 45.2px;">Login</span>
+                  style="padding-left: 45.2px; padding-right: 45.2px;">Login</span>
             <input type="text" class="form-control">
         </div>
         <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                style="padding-left: 46px; padding-right: 46px;">Email</span>
+                  style="padding-left: 46px; padding-right: 46px;">Email</span>
             <input type="text" class="form-control">
         </div>
         <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                style="padding-left: 29.5px; padding-right: 29.5px;">Username</span>
+                  style="padding-left: 29.5px; padding-right: 29.5px;">Username</span>
             <input type="text" class="form-control">
         </div>
         <div class="input-group input-group mb-3">
             <button class="btn me-4" id="upload-avatar-button"
-                onclick="document.getElementById('formFile').click()"
-                style="padding-left: 14.5px; padding-right: 14.5px;">Upload Avatar</button>
-            <img src="{% static "img/img2.jpg" %}" width="100" height="100" />
+                    onclick="document.getElementById('formFile').click()"
+                    style="padding-left: 14.5px; padding-right: 14.5px;">Upload Avatar
+            </button>
+            <img src="{% static "img/img2.jpg" %}" width="100" height="100"/>
             <input style="display: none;" class="form-control form-control" id="formFile" type="file">
         </div>
     </div>

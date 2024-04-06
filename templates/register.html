@@ -1,7 +1,7 @@
 {% extends "layouts/base.html" %}
-{%load static%}
+{% load static %}
 
-{%block login_state %}
+{% block login_state %}
     <div class="d-flex justify-content-between gap-3">
         <div class="justify-content-center">
             <a href="{% url "login" %}">Login</a>
@@ -22,34 +22,35 @@
         <p style="color: red;">Sorry, this email address is already in use!</p>
         <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                style="padding-left: 45.2px; padding-right: 45.2px;">Login</span>
+                  style="padding-left: 45.2px; padding-right: 45.2px;">Login</span>
             <input type="text" class="form-control">
         </div>
         <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                style="padding-left: 46px; padding-right: 46px;">Email</span>
+                  style="padding-left: 46px; padding-right: 46px;">Email</span>
             <input type="text" class="form-control">
         </div>
         <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                style="padding-left: 29.5px; padding-right: 29.5px;">Username</span>
+                  style="padding-left: 29.5px; padding-right: 29.5px;">Username</span>
             <input type="text" class="form-control">
         </div>
         <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                style="padding-left: 32px; padding-right: 32px;">Password</span>
+                  style="padding-left: 32px; padding-right: 32px;">Password</span>
             <input type="password" class="form-control">
         </div>
         <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                style="padding-left: 32px; padding-right: 32px;">Repeat <br> Password</span>
+                  style="padding-left: 32px; padding-right: 32px;">Repeat <br> Password</span>
             <input type="password" class="form-control">
         </div>
         <div class="input-group input-group mb-3">
             <button class="btn me-4" id="upload-avatar-button"
-                style="padding-left: 14.5px; padding-right: 14.5px;"
-                onclick="document.getElementById('formFile').click()">Upload Avatar</button>
-            <img src="{% static "img/img2.jpg"%}" width="100" height="100" />
+                    style="padding-left: 14.5px; padding-right: 14.5px;"
+                    onclick="document.getElementById('formFile').click()">Upload Avatar
+            </button>
+            <img src="{% static "img/img2.jpg" %}" width="100" height="100"/>
             <input style="display: none;" class="form-control form-control" id="formFile" type="file">
         </div>
     </div>
