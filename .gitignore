@@ -54,6 +54,7 @@ __fixtures__/custom-modules-dir/patches/
 __pycache__
 db.sqlite3
 media
+app/local_settings.py
 
 # Backup files # 
 *.bak 

@@ -31,12 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'faker',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     BASE_DIR / "node_modules/bootstrap",
 ]
+
+try:
+    from app.local_settings import *
+except ImportError:
+    pass
