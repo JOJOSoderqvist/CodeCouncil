@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
-from app.models import Question, Answer, Rating
+from app.models import Question, Answer
 
 # Create your views here.
 
@@ -33,7 +33,7 @@ def paginator(object_list, request, elems_per_page=5):
 
 
 def index(request):
-    questions = Question.objects.get_all()
+    questions = Question.objects.get_latest()
     pages = paginator(questions, request)
     return render(request, 'index.html', {'questions': pages})
 
@@ -64,7 +64,8 @@ def ask(request):
 
 
 def tag(request, tag_name):
-    pages = paginator(QUESTIONS, request)
+    questions_by_tag = Question.objects.get_by_tag(tag_name)
+    pages = paginator(questions_by_tag, request)
     return render(request, 'tag.html', {'questions': pages, 'tag_name': tag_name})
 
 

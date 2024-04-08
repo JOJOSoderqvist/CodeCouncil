@@ -1,30 +1,31 @@
 from django.contrib.auth.models import User
-from django.db.models import Sum, Case, When
+from django.db.models import Sum, Case, When, Count
 from django.db import models
 
 
 class QuestionManager(models.Manager):
     def get_all(self):
-        return self.annotate(total_rating=Sum(
-            Case(
-                When(rating__question__isnull=False, then='rating__value'),
-                default=0
-            )
-        ))
+        return self.annotate(total_rating=Sum(Case(When(rating__question__isnull=False, then='rating__value'))),
+                             answers_number=Count('answer'))
 
     def get_hot(self):
-        return self.get_all().order_by('-views', '-total_rating')
+        return self.get_all().order_by('-total_rating')
+
+    def get_latest(self):
+        return self.get_all().order_by('-created_at')
 
     def get_by_id(self, question_id):
         return self.get_all().get(pk=question_id)
+
+    def get_by_tag(self, tag_name):
+        return self.get_all().filter(tags__name=tag_name)
 
 
 class AnswerManager(models.Manager):
     def get_all(self):
         return self.annotate(total_rating=Sum(
             Case(
-                When(rating__answer__isnull=False, then='rating__value'),
-                default=0
+                When(rating__answer__isnull=False, then='rating__value')
             )
         ))
 
@@ -49,7 +50,6 @@ class Question(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     text = models.CharField(max_length=1000)
-    views = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = QuestionManager()
@@ -72,6 +72,7 @@ class Answer(models.Model):
 class Rating(models.Model):
     class RateEntity(models.IntegerChoices):
         NOT_HELPFUL = -1, 'Not Helpful'
+        NEUTRAL = 0, 'Neutral'
         HELPFUL = 1, 'Helpful'
 
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
