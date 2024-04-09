@@ -13,5 +13,6 @@ urlpatterns = [
     path('ask/', views.ask, name='ask'),
     path('tag/<str:tag_name>/', views.tag, name='tag'),
     path('profile/', views.profile, name='profile'),
-    path('logout/', views.logout, name="logout")
+    path('logout/', views.logout, name='logout'),
+    path('member/', views.member, name='member')
 ]

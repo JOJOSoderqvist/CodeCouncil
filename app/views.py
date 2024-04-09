@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from app.models import Question, Answer
 
@@ -75,3 +76,7 @@ def profile(request):
 
 def logout(request):
     return redirect('/login')
+
+
+def member(request):
+    return HttpResponseNotFound("<h1>Page not found</h1>")

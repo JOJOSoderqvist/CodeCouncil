@@ -5,8 +5,9 @@ from django.db import models
 
 class QuestionManager(models.Manager):
     def get_all(self):
-        return self.annotate(total_rating=Sum(Case(When(rating__question__isnull=False, then='rating__value'))),
-                             answers_number=Count('answer'))
+        return self.annotate(
+            total_rating=Sum(Case(When(rating__question__isnull=False, then='rating__value')), default=0),
+            answers_number=Count('answer'))
 
     def get_hot(self):
         return self.get_all().order_by('-total_rating')
@@ -23,11 +24,8 @@ class QuestionManager(models.Manager):
 
 class AnswerManager(models.Manager):
     def get_all(self):
-        return self.annotate(total_rating=Sum(
-            Case(
-                When(rating__answer__isnull=False, then='rating__value')
-            )
-        ))
+        return self.annotate(
+            total_rating=Sum(Case(When(rating__answer__isnull=False, then='rating__value')), default=0))
 
     def get_answers_for_question(self, question_id):
         return self.get_all().filter(question_id=question_id)
