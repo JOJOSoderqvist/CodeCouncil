@@ -7,7 +7,7 @@ class QuestionManager(models.Manager):
     def get_all(self):
         return self.annotate(
             total_rating=Sum(Case(When(rating__question__isnull=False, then='rating__value')), default=0),
-            answers_number=Count('answer'))
+            answers_number=Count('answer', distinct=True))
 
     def get_hot(self):
         return self.get_all().order_by('-total_rating')
