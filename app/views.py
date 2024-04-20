@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
-from app.models import Question, Answer
+from app.models import Question, Answer, Tag
 
 # Create your views here.
 
@@ -21,6 +21,7 @@ def paginator(object_list, request, elems_per_page=5):
 def index(request):
     questions = Question.objects.get_latest()
     pages = paginator(questions, request)
+    print(Tag.objects.get_popular_tags())
     return render(request, 'index.html', {'questions': pages})
 
 

@@ -66,7 +66,7 @@ class Command(BaseCommand):
         #     questions_list.append(question)
         #
         # Question.objects.bulk_create(questions_list)
-        # question_objects = Question.objects.all()
+        question_objects = Question.objects.all()
         #
         # for question in question_objects:
         #     for _ in range(0, random.randint(1, 5)):
@@ -114,11 +114,11 @@ class Command(BaseCommand):
 
         question_rating_objects = QuestionRating.objects.all()
         answer_rating_objects = AnswerRating.objects.all()
-        # for question_object in question_objects:
-        #     rating_sum = question_rating_objects.filter(question=question_object).aggregate(Sum('value'))
-        #     if rating_sum['value__sum']:
-        #         question_object.rating = rating_sum['value__sum']
-        #         question_object.save()
+        for question_object in question_objects:
+            rating_sum = question_rating_objects.filter(question=question_object).aggregate(Sum('value'))
+            if rating_sum['value__sum']:
+                question_object.rating = rating_sum['value__sum']
+                question_object.save()
         for answer_object in answer_objects:
             rating_sum = answer_rating_objects.filter(answer=answer_object).aggregate(Sum('value'))
             if rating_sum['value__sum']:

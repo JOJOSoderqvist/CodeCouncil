@@ -28,7 +28,10 @@ class AnswerManager(models.Manager):
 
 class TagManager(models.Manager):
     def get_popular_tags(self):
-        pass
+        popular_tags = Tag.objects.all().annotate(Count('question')).values('question__count').order_by(
+            '-question__count')[:7].values('name')
+
+        return popular_tags
 
 
 class Profile(models.Model):
@@ -39,6 +42,7 @@ class Profile(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=10, unique=True)
+    objects = TagManager()
 
     def __str__(self):
         return self.name
