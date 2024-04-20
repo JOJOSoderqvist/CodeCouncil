@@ -1,7 +1,13 @@
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
-from app.models import Question, Answer, Tag
+from django.urls import reverse
+
+from app.forms import RegisterForm
+from app.models import Question, Answer, Tag, Profile
+
 
 # Create your views here.
 
@@ -21,8 +27,6 @@ def paginator(object_list, request, elems_per_page=5):
 def index(request):
     questions = Question.objects.get_latest()
     pages = paginator(questions, request)
-    for tagg in Tag.objects.get_popular_tags():
-        print(tagg)
     return render(request, 'index.html', {'questions': pages})
 
 
@@ -39,11 +43,31 @@ def question(request, question_id):
     return render(request, 'question.html', {'question': single_question, 'answers': pages})
 
 
-def login(request):
+def loginn(request):
     return render(request, 'login.html')
 
 
 def register(request):
+    if request.method == "POST":
+        register_form = RegisterForm(data=request.POST)
+        for field in register_form:
+            print("Field Error:", field.name, field.errors)
+        if register_form.is_valid():
+            new_user = User.objects.create_user(username=register_form.cleaned_data['django_username'],
+                                                email=register_form.cleaned_data['email'],
+                                                password=register_form.cleaned_data['password'])
+            new_user.save()
+            Profile.objects.create_profile(new_user, register_form.cleaned_data['username'])
+            user = authenticate(request, username=register_form.cleaned_data['django_username'], password=register_form.cleaned_data['password'])
+            print(new_user.username)
+            if user:
+                login(request, user)
+                return redirect(reverse('index'))
+            else:
+                print('failed register')
+        else:
+            print('form not valid')
+
     return render(request, 'register.html')
 
 

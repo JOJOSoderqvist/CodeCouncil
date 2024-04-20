@@ -18,40 +18,47 @@
 {% block right_column_styling %}padding-left: 225px;{% endblock right_column_styling %}
 
 {% block content %}
-    <div class="d-flex flex-column">
-        <p style="color: red;">Sorry, this email address is already in use!</p>
-        <div class="input-group input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing"
-                  style="padding-left: 45.2px; padding-right: 45.2px;">Login</span>
-            <input type="text" class="form-control">
+    <form method="post" action="">
+        <div class="d-flex flex-column">
+{#            <p style="color: red;">Sorry, this email address is already in use!</p>#}
+            <div class="input-group input-group mb-3">
+                <label class="input-group-text" id="inputGroup-sizing" for="loginInput"
+                       style="padding-left: 45.2px; padding-right: 45.2px;">Login</label>
+                <input type="text" class="form-control" id="loginInput" name="django_username">
+            </div>
+            <div class="input-group input-group mb-3">
+                <label class="input-group-text" id="inputGroup-sizing" for="emailInput"
+                       style="padding-left: 46px; padding-right: 46px;">Email</label>
+                <input type="text" class="form-control" id="emailInput" name="email">
+            </div>
+            <div class="input-group input-group mb-3">
+                <label class="input-group-text" id="inputGroup-sizing" for="usernameInput"
+                       style="padding-left: 29.5px; padding-right: 29.5px;">Username</label>
+                <input type="text" class="form-control" id="usernameInput" name="username">
+            </div>
+            <div class="input-group input-group mb-3">
+                <label class="input-group-text" id="inputGroup-sizing" for="passwordInput"
+                       style="padding-left: 32px; padding-right: 32px;">Password</label>
+                <input type="password" class="form-control" id="passwordInput" name="password">
+            </div>
+            <div class="input-group input-group mb-3">
+                <label class="input-group-text" id="inputGroup-sizing" for="repeatPasswordInput"
+                       style="padding-left: 32px; padding-right: 32px;">Repeat <br> Password</label>
+                <input type="password" class="form-control" id="repeatPasswordInput" name="repeat_password">
+            </div>
+            <div class="input-group input-group mb-3">
+                <button class="btn me-4" id="upload-avatar-button"
+                        style="padding-left: 14.5px; padding-right: 14.5px;"
+                        onclick="document.getElementById('formFile').click()">Upload Avatar
+                </button>
+                <img src="{% static "img/img2.jpg" %}" width="100" height="100" alt="defaultProfilePic"/>
+                <input style="display: none;" class="form-control form-control" id="formFile" type="file">
+            </div>
+            <div class="input-group input-group mb-3">
+                <button class="btn btn-primary" type="submit" id="register-button"
+                        style="padding-left: 36.5px; padding-right: 36.5px;">Register
+                </button>
+            </div>
         </div>
-        <div class="input-group input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing"
-                  style="padding-left: 46px; padding-right: 46px;">Email</span>
-            <input type="text" class="form-control">
-        </div>
-        <div class="input-group input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing"
-                  style="padding-left: 29.5px; padding-right: 29.5px;">Username</span>
-            <input type="text" class="form-control">
-        </div>
-        <div class="input-group input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing"
-                  style="padding-left: 32px; padding-right: 32px;">Password</span>
-            <input type="password" class="form-control">
-        </div>
-        <div class="input-group input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing"
-                  style="padding-left: 32px; padding-right: 32px;">Repeat <br> Password</span>
-            <input type="password" class="form-control">
-        </div>
-        <div class="input-group input-group mb-3">
-            <button class="btn me-4" id="upload-avatar-button"
-                    style="padding-left: 14.5px; padding-right: 14.5px;"
-                    onclick="document.getElementById('formFile').click()">Upload Avatar
-            </button>
-            <img src="{% static "img/img2.jpg" %}" width="100" height="100"/>
-            <input style="display: none;" class="form-control form-control" id="formFile" type="file">
-        </div>
-    </div>
+    </form>
 {% endblock content %}

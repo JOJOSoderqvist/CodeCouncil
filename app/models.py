@@ -27,17 +27,26 @@ class AnswerManager(models.Manager):
 
 
 class TagManager(models.Manager):
-    def get_popular_tags(self):
+    @staticmethod
+    def get_popular_tags():
         popular_tags = Tag.objects.all().annotate(Count('question')).values('question__count').order_by(
             '-question__count')[:7].values('name')
 
         return popular_tags
 
 
+class ProfileManager(models.Manager):
+    @staticmethod
+    def create_profile(user, displayed_name):
+        user_profile = Profile.objects.create(user=user, displayed_name=displayed_name)
+        user_profile.save()
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(null=True, blank=True)
     displayed_name = models.CharField(max_length=100, unique=True)
+    objects = ProfileManager()
 
 
 class Tag(models.Model):

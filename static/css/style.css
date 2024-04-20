@@ -82,7 +82,7 @@ textarea {
     color: lightgoldenrodyellow ;
 }
 
-#upload-avatar-button, #register-button, #answer-button {
+#upload-avatar-button, #register-button, #answer-button #login-button{
     background-color: #4f565e;
     color: lightgoldenrodyellow ;
     border-color: rgb(206, 212, 218);
@@ -115,6 +115,6 @@ hr {
     border-color: lightgoldenrodyellow;
 }
 
-#answer-button:hover, #register-button:hover, #upload-avatar-button:hover, #ask-button:hover {
+#answer-button:hover, #register-button:hover, #upload-avatar-button:hover, #ask-button:hover #login-button:hover {
     background-color: #232427;
 }
