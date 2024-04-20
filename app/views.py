@@ -5,21 +5,6 @@ from app.models import Question, Answer
 
 # Create your views here.
 
-QUESTIONS = [
-    {
-        'id': i,
-        'title': f"Question {i}",
-        'text': f"This is a question {i}",
-    } for i in range(20)
-]
-
-ANSWERS = [
-    {
-        'id': i,
-        'text': f"This is an answer {i}",
-    } for i in range(10)
-]
-
 
 def paginator(object_list, request, elems_per_page=5):
     page_num = request.GET.get('page', 1)

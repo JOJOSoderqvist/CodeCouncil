@@ -6,7 +6,7 @@
                 <img src="{% static 'img/img.jpg' %}" class="img-fluid" alt="...">
             </div>
             <div class="input-group flex-nowrap">
-                <input type="number" value="{{ question.total_rating }}" class="form-control"/>
+                <input type="number" value="{{ question.rating }}" class="form-control"/>
             </div>
         </div>
         <div class="col">
@@ -18,7 +18,7 @@
                     {{ question.text }}
                 </p>
                 <div class="row">
-                    <a class="col-4" href="{% url "question" question.id %}">answers ({{ question.answers_number }})</a>
+                    <a class="col-4" href="{% url "question" question.id %}">answers ({{ question.answers_count }})</a>
                     <div class="col-8">
                         <span>Tags:</span>
                         {% for tag in question.tags.all %}

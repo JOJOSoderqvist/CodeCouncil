@@ -4,11 +4,31 @@ from django.db import models
 
 
 class QuestionManager(models.Manager):
-    pass
+
+    def get_all(self):
+        return self.all()
+
+    def get_latest(self):
+        return self.get_all().order_by('-created_at')
+
+    def get_hot(self):
+        return self.get_all().order_by('-rating')
+
+    def get_by_id(self, question_id):
+        return self.get_all().get(id=question_id)
+
+    def get_by_tag(self, tag_name):
+        return self.get_all().filter(tags__name=tag_name)
 
 
 class AnswerManager(models.Manager):
-    pass
+    def get_answers_for_question(self, q_id):
+        return self.all().filter(question_id=q_id)
+
+
+class TagManager(models.Manager):
+    def get_popular_tags(self):
+        pass
 
 
 class Profile(models.Model):
@@ -30,6 +50,7 @@ class Question(models.Model):
     title = models.CharField(max_length=100)
     text = models.CharField(max_length=1000)
     rating = models.IntegerField(default=0)
+    answers_count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = QuestionManager()
