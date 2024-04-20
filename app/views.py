@@ -21,7 +21,8 @@ def paginator(object_list, request, elems_per_page=5):
 def index(request):
     questions = Question.objects.get_latest()
     pages = paginator(questions, request)
-    print(Tag.objects.get_popular_tags())
+    for tagg in Tag.objects.get_popular_tags():
+        print(tagg)
     return render(request, 'index.html', {'questions': pages})
 
 
