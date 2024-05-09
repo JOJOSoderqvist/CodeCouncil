@@ -1,16 +1,5 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-{#{% block login_state %}#}
-{#    <div class="d-flex justify-content-between gap-3 me-4">#}
-{#        <div class="border">#}
-{#            <img src="{% static "img/img2.jpg" %}" width="50" height="50"/>#}
-{#        </div>#}
-{#        <div class="d-flex flex-column justify-content-between">#}
-{#            <a href="{% url "profile" %}">Username</a>#}
-{#            <a href="{% url "logout" %}">Log out</a>#}
-{#        </div>#}
-{#    </div>#}
-{#{% endblock login_state %}#}
 
 {% block page_title %}
     <h2>New Question</h2>
@@ -21,22 +10,24 @@
 {% block right_column_styling %}padding-left: 65px;{% endblock right_column_styling %}
 
 {% block content %}
-    <div class="d-flex flex-column">
-        <div class="input-group input-group-lg mb-3">
+    <form method="post">
+        <div class="d-flex flex-column">
+            <div class="input-group input-group-lg mb-3">
             <span class="input-group-text" id="inputGroup-sizing-lg"
                   style="padding-left: 18px; padding-right: 18px;">Title</span>
-            <input type="text" class="form-control">
-        </div>
-        <div class="input-group input-group-lg mb-3">
+                <input type="text" class="form-control" name="title">
+            </div>
+            <div class="input-group input-group-lg mb-3">
             <span class="input-group-text" id="inputGroup-sizing-lg"
                   style="padding-left: 19px; padding-right: 19px;">Text</span>
-            <textarea type="text" class="form-control"></textarea>
-        </div>
-        <div class="input-group input-group-lg mb-3">
+                <textarea type="text" class="form-control" name="text"></textarea>
+            </div>
+            <div class="input-group input-group-lg mb-3">
             <span class="input-group-text" id="inputGroup-sizing-lg"
                   style="padding-left: 17px; padding-right: 17px;">Tags</span>
-            <input type="text" class="form-control">
+                <input type="text" class="form-control" name="tags">
+            </div>
         </div>
-    </div>
-    <button class="btn btn-primary" type="submit" id="ask-button">Ask</button>
+        <button class="btn btn-primary" type="submit" id="ask-button">Ask</button>
+    </form>
 {% endblock content %}

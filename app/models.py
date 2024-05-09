@@ -34,6 +34,15 @@ class TagManager(models.Manager):
 
         return popular_tags
 
+    @staticmethod
+    def get_ot_create_tags(tags):
+        tag_objects = []
+        for tag in tags:
+            tag_object, _ = Tag.objects.get_or_create(name=tag)
+            tag_objects.append((tag_object.name, tag_object.id))
+        print(tag_objects)
+        return tag_objects
+
 
 class ProfileManager(models.Manager):
     @staticmethod
@@ -60,7 +69,7 @@ class Tag(models.Model):
 class Question(models.Model):
     tags = models.ManyToManyField(Tag)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=50)
     text = models.CharField(max_length=1000)
     rating = models.IntegerField(default=0)
     answers_count = models.IntegerField(default=0)

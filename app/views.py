@@ -5,7 +5,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from app.forms import RegisterForm, LoginForm, UserEditForm
+from app.forms import RegisterForm, LoginForm, UserEditForm, NewQuestionForm
 from app.models import Question, Answer, Tag, Profile
 
 
@@ -87,7 +87,25 @@ def register(request):
     return render(request, 'register.html')
 
 
+def tags_parser(tags_string):
+    tags_array = tags_string.split(',')
+    tags_objects = Tag.objects.get_ot_create_tags(tags_array)
+    return tags_objects
+
+
 def ask(request):
+    if request.method == "POST":
+        new_question_form = NewQuestionForm(data=request.POST)
+        if new_question_form.is_valid():
+            tags = tags_parser(new_question_form.cleaned_data['tags'])
+            new_question = Question.objects.create(title=new_question_form.cleaned_data['title'],
+                                                   text=new_question_form.cleaned_data['text'],
+                                                   user=Profile.objects.get(user=request.user))
+            for question_tag in tags:
+                _, question_id = question_tag
+                new_question.tags.add(question_id)
+            new_question.save()
+            return redirect(f"/question/{new_question.id}")
     return render(request, 'ask.html')
 
 

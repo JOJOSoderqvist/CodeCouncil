@@ -20,8 +20,6 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
             <button class="btn btn-outline-light" type="submit" id="search-button">Search</button>
         </form>
-{#        {% block login_state %}#}
-{#        {% endblock login_state %}#}
         {% if user.is_authenticated %}
         <div class="d-flex justify-content-between gap-3 me-4">
             <div class="d-flex justify-content-center me-4">
@@ -37,8 +35,10 @@
         </div>    
         {% else %}
         <div class="d-flex justify-content-between gap-3">
-            <div class="justify-content-center">
-                <a href="{% url "login" %}">Login</a>
+            <div class="d-flex flex-row justify-content-center mt-3">
+                <a href="{% url "login" %}" class="me-2">Login</a>
+                <p>or</p>
+                <a href="{% url "register" %}" class="ms-2">Register</a>
             </div>
         </div>
         {% endif %}

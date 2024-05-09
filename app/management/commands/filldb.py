@@ -26,7 +26,7 @@ class Command(BaseCommand):
         # tags = [Tag(name=name) for name in unique_tag_names]
         # Tag.objects.bulk_create(tags)
         tag_objects = Tag.objects.all()
-        #
+
         # # profile and users
         # unique_usernames = set()
         # unique_emails = set()
@@ -45,10 +45,9 @@ class Command(BaseCommand):
         # User.objects.bulk_create(users)
 
         user_objects = User.objects.all()
-        # profiles = [Profile(user=user, displayed_name=user.username,
-        #                     avatar=os.path.join(STATIC_URL, 'img/default_profilepic.jpg')) for user in
-        #             user_objects]
-        # Profile.objects.bulk_create(profiles)
+        profiles = [Profile(user=user, displayed_name=user.username,
+                            avatar=os.path.join(STATIC_URL, 'img/default_profilepic.jpg')) for user in user_objects]
+        Profile.objects.bulk_create(profiles)
         profile_objects = Profile.objects.all()
 
         # questions and answers

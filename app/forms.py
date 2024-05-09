@@ -18,3 +18,9 @@ class UserEditForm(forms.Form):
     django_username = forms.CharField(max_length=20, required=False)
     email = forms.EmailField(required=False)
     username = forms.CharField(required=False)
+
+
+class NewQuestionForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    text = forms.CharField(max_length=1000)
+    tags = forms.CharField()
