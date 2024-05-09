@@ -1,14 +1,6 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 
-{% block login_state %}
-    <div class="d-flex justify-content-between gap-3">
-        <div class="justify-content-center">
-            <a href="{% url "login" %}">Login</a>
-        </div>
-    </div>
-{% endblock login_state %}
-
 {% block page_title %}
     <h2>Registration</h2>
 {% endblock page_title %}

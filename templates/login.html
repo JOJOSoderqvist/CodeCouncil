@@ -1,12 +1,12 @@
 {% extends "layouts/base.html" %}
 
-{% block login_state %}
-    <div class="d-flex justify-content-between gap-3">
-        <div class="justify-content-center">
-            <a href="{% url "register" %}">Register</a>
-        </div>
-    </div>
-{% endblock login_state %}
+{#{% block login_state %}#}
+{#    <div class="d-flex justify-content-between gap-3">#}
+{#        <div class="justify-content-center">#}
+{#            <a href="{% url "register" %}">Register</a>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock login_state %}#}
 
 {% block page_title %}
     <h2>Login</h2>
@@ -17,20 +17,23 @@
 {% block right_column_styling %}padding-left: 225px;{% endblock right_column_styling %}
 
 {% block content %}
-    <div class="d-flex flex-column">
-        <p style="color: red;">Sorry, wrong password</p>
+ <form method="post" action="">
+        <div class="d-flex flex-column">
+{#        <p style="color: red;">Sorry, wrong password</p>#}
         <div class="input-group input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing"
               style="padding-left: 45.2px; padding-right: 45.2px;">Login</span>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" name="django_username">
         </div>
         <div class="input-group input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing"
               style="padding-left: 32px; padding-right: 32px;">Password</span>
-            <input type="password" class="form-control">
+            <input type="password" class="form-control" name="password">
         </div>
     </div>
     <button class="btn btn-primary" type="submit" id="login-button"
             style="padding-left: 45.5px; padding-right: 45.5px;">Login
     </button>
+</form>
+
 {% endblock content %}

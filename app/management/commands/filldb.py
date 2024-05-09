@@ -18,15 +18,15 @@ class Command(BaseCommand):
         Faker.seed(0)
 
         ratio = options['ratio']
-        # tags
+        # # tags
         # unique_tag_names = set()
         # while len(unique_tag_names) < ratio:
-        #     unique_tag_names.add(fake.text()[:random.randint(3, 6)])
+        #     unique_tag_names.add(fake.text()[:  random.randint(3, 6)])
         #
         # tags = [Tag(name=name) for name in unique_tag_names]
         # Tag.objects.bulk_create(tags)
         tag_objects = Tag.objects.all()
-
+        #
         # # profile and users
         # unique_usernames = set()
         # unique_emails = set()
@@ -51,66 +51,66 @@ class Command(BaseCommand):
         # Profile.objects.bulk_create(profiles)
         profile_objects = Profile.objects.all()
 
-        # # questions and answers
-        # questions_list = []
-        # answers_list = []
-        #
-        # for _ in range(ratio * 10):
-        #     question = Question(
-        #         user=random.choice(profile_objects),
-        #         title=f"{fake.sentence()[:random.randint(10, 20)]}?",
-        #         text=fake.text()[:random.randint(30, 100)],
-        #         created_at=fake.past_date(),
-        #         updated_at=fake.date_time_this_year()
-        #     )
-        #     questions_list.append(question)
-        #
-        # Question.objects.bulk_create(questions_list)
+        # questions and answers
+        questions_list = []
+        answers_list = []
+
+        for _ in range(ratio * 10):
+            question = Question(
+                user=random.choice(profile_objects),
+                title=f"{fake.sentence()[:random.randint(10, 20)]}?",
+                text=fake.text()[:random.randint(30, 100)],
+                created_at=fake.past_date(),
+                updated_at=fake.date_time_this_year()
+            )
+            questions_list.append(question)
+
+        Question.objects.bulk_create(questions_list)
         question_objects = Question.objects.all()
-        #
-        # for question in question_objects:
-        #     for _ in range(0, random.randint(1, 5)):
-        #         question.tags.add(random.choice(tag_objects))
-        #
-        #     num_answers = random.randint(5, 20)
-        #     question.answers_count = num_answers
-        #     question.save()
-        #     for _ in range(num_answers):
-        #         answer = Answer(
-        #             question=question,
-        #             text=fake.text()[:random.randint(5, 100)],
-        #             user=random.choice(profile_objects),
-        #             is_correct=fake.boolean(),
-        #             created_at=fake.past_date(),
-        #             updated_at=fake.date_time_this_year()
-        #         )
-        #         answers_list.append(answer)
-        #
-        # Answer.objects.bulk_create(answers_list)
+
+        for question in question_objects:
+            for _ in range(0, random.randint(1, 5)):
+                question.tags.add(random.choice(tag_objects))
+
+            num_answers = random.randint(5, 20)
+            question.answers_count = num_answers
+            question.save()
+            for _ in range(num_answers):
+                answer = Answer(
+                    question=question,
+                    text=fake.text()[:random.randint(5, 100)],
+                    user=random.choice(profile_objects),
+                    is_correct=fake.boolean(),
+                    created_at=fake.past_date(),
+                    updated_at=fake.date_time_this_year()
+                )
+                answers_list.append(answer)
+
+        Answer.objects.bulk_create(answers_list)
 
         answer_objects = Answer.objects.all()
-        #
-        # # Ratings
-        # question_rating = []
-        # answer_rating = []
-        # for profile in profile_objects:
-        #     rated_questions = random.sample(list(question_objects), k=random.randint(70, 140))
-        #     for question in rated_questions:
-        #         question_rating.append(QuestionRating(
-        #             user=profile,
-        #             question=question,
-        #             value=random.choice([-1, 0, 1])
-        #         ))
-        #
-        #     rated_answers = random.sample(list(answer_objects), k=random.randint(70, 140))
-        #     for answer in rated_answers:
-        #         answer_rating.append(AnswerRating(
-        #             user=profile,
-        #             answer=answer,
-        #             value=random.choice([-1, 0, 1])
-        #         ))
-        # QuestionRating.objects.bulk_create(question_rating)
-        # AnswerRating.objects.bulk_create(answer_rating)
+
+        # Ratings
+        question_rating = []
+        answer_rating = []
+        for profile in profile_objects:
+            rated_questions = random.sample(list(question_objects), k=random.randint(70, 140))
+            for question in rated_questions:
+                question_rating.append(QuestionRating(
+                    user=profile,
+                    question=question,
+                    value=random.choice([-1, 0, 1])
+                ))
+
+            rated_answers = random.sample(list(answer_objects), k=random.randint(70, 140))
+            for answer in rated_answers:
+                answer_rating.append(AnswerRating(
+                    user=profile,
+                    answer=answer,
+                    value=random.choice([-1, 0, 1])
+                ))
+        QuestionRating.objects.bulk_create(question_rating)
+        AnswerRating.objects.bulk_create(answer_rating)
 
         question_rating_objects = QuestionRating.objects.all()
         answer_rating_objects = AnswerRating.objects.all()

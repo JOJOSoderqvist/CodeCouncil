@@ -8,11 +8,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('hot/', views.hot, name='hot'),
     path('question/<int:question_id>/', views.question, name='question'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_view, name='login'),
     path('register/', views.register, name='register'),
     path('ask/', views.ask, name='ask'),
     path('tag/<str:tag_name>/', views.tag, name='tag'),
     path('profile/', views.profile, name='profile'),
-    path('logout/', views.logout, name='logout'),
+    path('logout/', views.logout_view, name='logout'),
     path('member/', views.member, name='member')
 ]

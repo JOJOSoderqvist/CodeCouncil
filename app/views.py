@@ -1,11 +1,11 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from app.forms import RegisterForm
+from app.forms import RegisterForm, LoginForm, UserEditForm
 from app.models import Question, Answer, Tag, Profile
 
 
@@ -43,7 +43,22 @@ def question(request, question_id):
     return render(request, 'question.html', {'question': single_question, 'answers': pages})
 
 
-def loginn(request):
+def login_view(request):
+    if request.method == 'POST':
+        login_form = LoginForm(data=request.POST)
+        if login_form.is_valid():
+            user = authenticate(request, username=login_form.cleaned_data['django_username'],
+                                password=login_form.cleaned_data['password'])
+            if user:
+                login(request, user)
+                return redirect('index')
+            else:
+                print('failed to authenticate')
+        else:
+            print('form is not valid')
+            for field in login_form:
+                print("Field Error:", field.name, field.errors)
+
     return render(request, 'login.html')
 
 
@@ -58,7 +73,8 @@ def register(request):
                                                 password=register_form.cleaned_data['password'])
             new_user.save()
             Profile.objects.create_profile(new_user, register_form.cleaned_data['username'])
-            user = authenticate(request, username=register_form.cleaned_data['django_username'], password=register_form.cleaned_data['password'])
+            user = authenticate(request, username=register_form.cleaned_data['django_username'],
+                                password=register_form.cleaned_data['password'])
             print(new_user.username)
             if user:
                 login(request, user)
@@ -82,11 +98,24 @@ def tag(request, tag_name):
 
 
 def profile(request):
+    if request.method == 'POST':
+        user_edit_form = UserEditForm(data=request.POST)
+        if user_edit_form.is_valid():
+            user_form_data = user_edit_form.cleaned_data
+            if user_form_data['django_username']:
+                request.user.username = user_form_data['django_username']
+            if user_form_data['email']:
+                request.user.email = user_form_data['email']
+            if user_form_data['username']:
+                request.user.profile.displayed_name = user_form_data['username']
+            request.user.save()
+            return redirect('profile')
     return render(request, 'profile.html')
 
 
-def logout(request):
-    return redirect('/login')
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('index'))
 
 
 def member(request):

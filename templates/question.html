@@ -1,19 +1,19 @@
 {% extends "layouts/base.html" %}
 {% load static %}
-{% block login_state %}
-    <div class="d-flex justify-content-between gap-3 me-4">
-        <div class="d-flex justify-content-center me-4">
-            <a class="btn btn-outline-light" href="{% url "ask" %}" style="padding-top: 13px">Ask!</a>
-        </div>
-        <div class="border">
-            <img src={% static 'img/img2.jpg' %} width="50" height="50"/>
-        </div>
-        <div class="d-flex flex-column justify-content-between">
-            <a href="{% url "profile" %}">Username</a>
-            <a href="{% url "logout" %}">Log out</a>
-        </div>
-    </div>
-{% endblock login_state %}
+{#{% block login_state %}#}
+{#    <div class="d-flex justify-content-between gap-3 me-4">#}
+{#        <div class="d-flex justify-content-center me-4">#}
+{#            <a class="btn btn-outline-light" href="{% url "ask" %}" style="padding-top: 13px">Ask!</a>#}
+{#        </div>#}
+{#        <div class="border">#}
+{#            <img src={% static 'img/img2.jpg' %} width="50" height="50"/>#}
+{#        </div>#}
+{#        <div class="d-flex flex-column justify-content-between">#}
+{#            <a href="{% url "profile" %}">Username</a>#}
+{#            <a href="{% url "logout" %}">Log out</a>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock login_state %}#}
 
 {% block content %}
     {% include "layouts/single_question.html" %}
