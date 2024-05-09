@@ -24,3 +24,7 @@ class NewQuestionForm(forms.Form):
     title = forms.CharField(max_length=50)
     text = forms.CharField(max_length=1000)
     tags = forms.CharField()
+
+
+class NewAnswerForm(forms.Form):
+    answer_text = forms.CharField(max_length=1000)

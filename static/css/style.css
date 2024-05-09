@@ -1,7 +1,6 @@
 
-
 body {
-    background-color: #343a40 ;
+    background-color: #343a40;
     color: #ffffff;
     padding-top: 70px;
 }
@@ -13,13 +12,13 @@ body {
 }
 
 article {
-    color: #fff; 
+    color: #fff;
     background-color: #4f565e !important;
 }
 
-#search-button{
+#search-button {
     background-color: #4f565e;
-    color: #fff ;
+    color: #fff;
     border-color: rgb(206, 212, 218);
 }
 
@@ -32,32 +31,32 @@ input::placeholder {
     color: rgba(250, 250, 210, 0.767) !important;
 }
 
-a{
+a {
     color: lightgoldenrodyellow;
 }
 
-a:hover{
+a:hover {
     color: lightgoldenrodyellow;
 }
 
 .page-link {
-    color: lightgoldenrodyellow; 
-    background-color: #4f565e; 
+    color: lightgoldenrodyellow;
+    background-color: #4f565e;
     border-color: rgb(206, 212, 218);
 }
 
 .page-link:hover {
-    color: lightgoldenrodyellow; 
-    background-color: #232427; 
+    color: lightgoldenrodyellow;
+    background-color: #232427;
 }
 
 .page-link:visited {
-    background-color: #4f565e; 
+    background-color: #4f565e;
     color: lightgoldenrodyellow;
 }
 
-.page-item{
-    border-color:  rgb(206, 212, 218) !important;
+.page-item {
+    border-color: rgb(206, 212, 218) !important;
 }
 
 textarea {
@@ -70,21 +69,22 @@ textarea {
     background-color: #4f565e !important;
 }
 
-#ask-button{
+#ask-button, #save-button {
     background-color: #4f565e;
-    color:lightgoldenrodyellow;
+    color: lightgoldenrodyellow;
     border-color: rgb(206, 212, 218);
     width: 74px;
 }
- 
-#inputGroup-sizing-lg, #inputGroup-sizing{
+
+#inputGroup-sizing-lg, #inputGroup-sizing {
     background-color: #4f565e;
-    color: lightgoldenrodyellow ;
+    color: lightgoldenrodyellow;
+    border-color: rgb(206, 212, 218);
 }
 
-#upload-avatar-button, #register-button, #answer-button #login-button{
+#upload-avatar-button, #register-button, #login-button, #answer-button {
     background-color: #4f565e;
-    color: lightgoldenrodyellow ;
+    color: lightgoldenrodyellow;
     border-color: rgb(206, 212, 218);
 }
 
@@ -107,14 +107,16 @@ hr {
 .card-body {
     padding-top: 9px;
 }
-.form-check-input{
+
+.form-check-input {
     color: lightgoldenrodyellow !important;
     border-color: #fff;
 }
+
 .form-check-input:checked {
     border-color: lightgoldenrodyellow;
 }
 
-#answer-button:hover, #register-button:hover, #upload-avatar-button:hover, #ask-button:hover #login-button:hover {
+#answer-button:hover, #register-button:hover, #upload-avatar-button:hover, #ask-button:hover, #login-button:hover, #save-button:hover {
     background-color: #232427;
 }

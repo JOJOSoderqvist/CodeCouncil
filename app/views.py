@@ -5,7 +5,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from app.forms import RegisterForm, LoginForm, UserEditForm, NewQuestionForm
+from app.forms import RegisterForm, LoginForm, UserEditForm, NewQuestionForm, NewAnswerForm
 from app.models import Question, Answer, Tag, Profile
 
 
@@ -36,10 +36,28 @@ def hot(request):
     return render(request, 'hot.html', {'questions': pages})
 
 
+def add_answer(request, single_question):
+    answer_form = NewAnswerForm(request.POST)
+    if answer_form.is_valid():
+        answer = Answer.objects.create(question=single_question, text=answer_form.cleaned_data['answer_text'],
+                                       user=Profile.objects.get(user=request.user))
+        answer.save()
+
+        single_question.answers_count += 1
+        single_question.save()
+        return True
+    return False
+
+
 def question(request, question_id):
     single_question = Question.objects.get_by_id(question_id)
     answers = Answer.objects.get_answers_for_question(question_id)
     pages = paginator(answers, request)
+
+    if request.method == 'POST':
+        if add_answer(request, single_question):
+            return redirect('question', question_id=single_question.id)
+
     return render(request, 'question.html', {'question': single_question, 'answers': pages})
 
 
@@ -63,7 +81,7 @@ def login_view(request):
 
 
 def register(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         register_form = RegisterForm(data=request.POST)
         for field in register_form:
             print("Field Error:", field.name, field.errors)
@@ -94,7 +112,7 @@ def tags_parser(tags_string):
 
 
 def ask(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         new_question_form = NewQuestionForm(data=request.POST)
         if new_question_form.is_valid():
             tags = tags_parser(new_question_form.cleaned_data['tags'])
@@ -115,18 +133,26 @@ def tag(request, tag_name):
     return render(request, 'tag.html', {'questions': pages, 'tag_name': tag_name})
 
 
+def update_user_credentials(request):
+    user_edit_form = UserEditForm(data=request.POST)
+    if user_edit_form.is_valid():
+        current_user_profile, current_user = Profile.objects.get_current_user_profile(request.user)
+        user_form_data = user_edit_form.cleaned_data
+        if user_form_data['django_username']:
+            current_user.username = user_form_data['django_username']
+        if user_form_data['email']:
+            current_user.email = user_form_data['email']
+        if user_form_data['username']:
+            current_user_profile.displayed_name = user_form_data['username']
+        current_user_profile.save()
+        current_user.save()
+        return True
+    return False
+
+
 def profile(request):
     if request.method == 'POST':
-        user_edit_form = UserEditForm(data=request.POST)
-        if user_edit_form.is_valid():
-            user_form_data = user_edit_form.cleaned_data
-            if user_form_data['django_username']:
-                request.user.username = user_form_data['django_username']
-            if user_form_data['email']:
-                request.user.email = user_form_data['email']
-            if user_form_data['username']:
-                request.user.profile.displayed_name = user_form_data['username']
-            request.user.save()
+        if update_user_credentials(request):
             return redirect('profile')
     return render(request, 'profile.html')
 

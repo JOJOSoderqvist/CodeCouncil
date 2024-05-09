@@ -50,6 +50,9 @@ class ProfileManager(models.Manager):
         user_profile = Profile.objects.create(user=user, displayed_name=displayed_name)
         user_profile.save()
 
+    def get_current_user_profile(self, user):
+        return self.get(user=user), User.objects.get(id=user.id)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -85,7 +88,7 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     text = models.CharField(max_length=1000)
-    is_correct = models.BooleanField()
+    is_correct = models.BooleanField(default=False)
     rating = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

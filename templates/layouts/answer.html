@@ -1,26 +1,27 @@
 {% load static %}
 
-<article class="card mb-3 w-100 mt-4 mx-auto" style="max-width: 80%; max-height: 80%;">
+<article class="card mb-3 w-100 mt-4 mx-auto" style="max-width:85%; max-height: 80%;">
     <div class="row g-0">
-        <div class="col-2 p-2">
-            <div class="w-100 mb-3 d-flex align-items-center" style="height: 100px; overflow: hidden;">
+        <div class="col-3 p-2">
+            <p class="mb-1">{{ answer.user.displayed_name }}</p>
+            <div class="w-100 mb-1 d-flex align-items-center" style="height: 100px; overflow: hidden;">
                 <img src="{% static 'img/img.jpg' %}" class="img-fluid" alt="...">
             </div>
             <div class="input-group flex-nowrap">
                 <input type="number" value="{{ answer.rating }}" class="form-control"/>
             </div>
         </div>
-        <div class="col">
+        <div class="col-9">
             <div class="card-body">
                 <p class="answer-card-text">
                     {{ answer.text }}
                 </p>
-                <div class="row">
+                <div class="row mt-5">
                     <div class="form-check">
                         {% if answer.is_correct %}
                             <input class="form-check-input" type="checkbox" checked>
                         {% else %}
-                             <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox">
                         {% endif %}
                         <label class="form-check-label">
                             Correct

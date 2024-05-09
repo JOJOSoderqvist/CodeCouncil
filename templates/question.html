@@ -3,16 +3,20 @@
 
 {% block content %}
     {% include "layouts/single_question.html" %}
+    {% if answers %}
+        <hr>
+        {% for answer in answers %}
+            {% include "layouts/answer.html" %}
+        {% endfor %}
+        {% include "layouts/pagination.html" with pages=answers %}
+    {% endif %}
     <hr>
-    {% for answer in answers %}
-        {% include "layouts/answer.html" %}
-    {% endfor %}
-    {% include "layouts/pagination.html" with pages=answers %}
-    <hr>
-    <div class="input-group input-group-lg mb-3 mx-auto" style="max-width: 80%;">
+    <form method="post">
+        <div class="input-group input-group-lg mb-3 mx-auto" style="max-width: 80%;">
         <span class="input-group-text" id="inputGroup-sizing-lg"
               style="padding-left: 19px; padding-right: 19px;">Type <br> your <br> answer</span>
-        <textarea type="text" class="form-control" style="height: 150px;"></textarea>
-        <button class="btn btn-primary" type="submit" id="answer-button">Answer</button>
-    </div>
+            <textarea type="text" class="form-control" style="height: 150px;" name="answer_text"></textarea>
+            <button class="btn" type="submit" id="answer-button">Answer</button>
+        </div>
+    </form>
 {% endblock content %}
