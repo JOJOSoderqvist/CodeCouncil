@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'utils.context_processors.fetch_popular_tags',
+                'utils.context_processors.fetch_popular_users',
             ],
         },
     },
@@ -131,7 +132,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     BASE_DIR / "node_modules/bootstrap",
 ]
-
+LOGIN_URL = '/login'
 try:
     from app.local_settings import *
 except ImportError:

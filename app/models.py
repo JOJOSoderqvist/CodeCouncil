@@ -53,6 +53,12 @@ class ProfileManager(models.Manager):
     def get_current_user_profile(self, user):
         return self.get(user=user), User.objects.get(id=user.id)
 
+    @staticmethod
+    def get_popular_profiles():
+        popular_profiles = Profile.objects.all().annotate(Count('question')).values('question__count').order_by(
+            '-question__count')[:7].values('displayed_name')
+        return popular_profiles
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

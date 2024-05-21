@@ -70,11 +70,9 @@
             </div>
             <h3 class=" mt-5">Best Members</h3>
                     <div>
-                        <a href="/member.html" class="d-block">Mr. Freeman</a><a href="/member.html" class="d-block">Mr.
-                        Freeman</a><a href="/member.html" class="d-block">Mr. Freeman</a><a href="/member.html"
-                                                                                            class="d-block">Mr.
-                        Freeman</a><a
-                            href="/member.html" class="d-block">Mr. Freeman</a>
+                        {% for popular_profile in profiles %}
+                            <a class="d-block" disabled="true">{{ popular_profile }}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

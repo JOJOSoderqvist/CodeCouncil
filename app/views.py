@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound
@@ -69,6 +70,8 @@ def login_view(request):
                                 password=login_form.cleaned_data['password'])
             if user:
                 login(request, user)
+                if request.GET.get('next'):
+                    return redirect(request.GET['next'])
                 return redirect('index')
             else:
                 print('failed to authenticate')
@@ -111,6 +114,7 @@ def tags_parser(tags_string):
     return tags_objects
 
 
+@login_required
 def ask(request):
     if request.method == 'POST':
         new_question_form = NewQuestionForm(data=request.POST)
@@ -150,6 +154,7 @@ def update_user_credentials(request):
     return False
 
 
+@login_required
 def profile(request):
     if request.method == 'POST':
         if update_user_credentials(request):
