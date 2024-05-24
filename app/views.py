@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_protect
 
 from app.forms import RegisterForm, LoginForm, UserEditForm, NewQuestionForm, NewAnswerForm
 from app.models import Question, Answer, Tag, Profile
@@ -37,6 +38,7 @@ def hot(request):
     return render(request, 'hot.html', {'questions': pages})
 
 
+@csrf_protect
 def add_answer(request, single_question):
     answer_form = NewAnswerForm(request.POST)
     if answer_form.is_valid():
@@ -56,12 +58,15 @@ def question(request, question_id):
     pages = paginator(answers, request)
 
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('login')
         if add_answer(request, single_question):
             return redirect('question', question_id=single_question.id)
 
     return render(request, 'question.html', {'question': single_question, 'answers': pages})
 
 
+@csrf_protect
 def login_view(request):
     if request.method == 'POST':
         login_form = LoginForm(data=request.POST)
@@ -83,6 +88,7 @@ def login_view(request):
     return render(request, 'login.html')
 
 
+@csrf_protect
 def register(request):
     if request.method == 'POST':
         register_form = RegisterForm(data=request.POST)
@@ -114,6 +120,7 @@ def tags_parser(tags_string):
     return tags_objects
 
 
+@csrf_protect
 @login_required
 def ask(request):
     if request.method == 'POST':
@@ -154,6 +161,7 @@ def update_user_credentials(request):
     return False
 
 
+@csrf_protect
 @login_required
 def profile(request):
     if request.method == 'POST':

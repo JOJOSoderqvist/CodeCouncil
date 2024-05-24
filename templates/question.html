@@ -12,6 +12,7 @@
     {% endif %}
     <hr>
     <form method="post">
+        {% csrf_token %}
         <div class="input-group input-group-lg mb-3 mx-auto" style="max-width: 80%;">
         <span class="input-group-text" id="inputGroup-sizing-lg"
               style="padding-left: 19px; padding-right: 19px;">Type <br> your <br> answer</span>

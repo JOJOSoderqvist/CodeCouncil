@@ -23,7 +23,7 @@ class QuestionManager(models.Manager):
 
 class AnswerManager(models.Manager):
     def get_answers_for_question(self, q_id):
-        return self.all().filter(question_id=q_id)
+        return self.all().filter(question_id=q_id).order_by('created_at')
 
 
 class TagManager(models.Manager):

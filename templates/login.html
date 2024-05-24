@@ -10,6 +10,7 @@
 
 {% block content %}
  <form method="post" action="">
+        {% csrf_token %}
         <div class="d-flex flex-column">
 {#        <p style="color: red;">Sorry, wrong password</p>#}
         <div class="input-group input-group mb-3">
