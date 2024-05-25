@@ -1,7 +1,9 @@
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.db import IntegrityError
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -95,23 +97,26 @@ def register(request):
         for field in register_form:
             print("Field Error:", field.name, field.errors)
         if register_form.is_valid():
-            new_user = User.objects.create_user(username=register_form.cleaned_data['django_username'],
-                                                email=register_form.cleaned_data['email'],
-                                                password=register_form.cleaned_data['password'])
-            new_user.save()
-            Profile.objects.create_profile(new_user, register_form.cleaned_data['username'])
-            user = authenticate(request, username=register_form.cleaned_data['django_username'],
-                                password=register_form.cleaned_data['password'])
-            print(new_user.username)
-            if user:
-                login(request, user)
-                return redirect(reverse('index'))
-            else:
-                print('failed register')
+            try:
+                new_user = User.objects.create_user(username=register_form.cleaned_data['django_username'],
+                                                    email=register_form.cleaned_data['email'],
+                                                    password=register_form.cleaned_data['password'])
+                new_user.save()
+                Profile.objects.create_profile(new_user, register_form.cleaned_data['username'])
+                user = authenticate(request, username=register_form.cleaned_data['django_username'],
+                                    password=register_form.cleaned_data['password'])
+                if user:
+                    login(request, user)
+                    return redirect(reverse('index'))
+                else:
+                    print('failed register')
+            except IntegrityError:
+                register_form.add_error(None, 'Username already taken or email address is already in use.')
         else:
             print('form not valid')
-
-    return render(request, 'register.html')
+    else:
+        register_form = RegisterForm()
+    return render(request, 'register.html', {'form': register_form})
 
 
 def tags_parser(tags_string):
