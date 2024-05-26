@@ -108,12 +108,8 @@ def register(request):
                 if user:
                     login(request, user)
                     return redirect(reverse('index'))
-                else:
-                    print('failed register')
             except IntegrityError:
                 register_form.add_error(None, 'Username already taken or email address is already in use.')
-        else:
-            print('form not valid')
     else:
         register_form = RegisterForm()
     return render(request, 'register.html', {'form': register_form})
