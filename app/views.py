@@ -1,4 +1,3 @@
-
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -75,19 +74,16 @@ def login_view(request):
         if login_form.is_valid():
             user = authenticate(request, username=login_form.cleaned_data['django_username'],
                                 password=login_form.cleaned_data['password'])
-            if user:
+            if user is not None:
                 login(request, user)
                 if request.GET.get('next'):
                     return redirect(request.GET['next'])
                 return redirect('index')
             else:
-                print('failed to authenticate')
-        else:
-            print('form is not valid')
-            for field in login_form:
-                print("Field Error:", field.name, field.errors)
-
-    return render(request, 'login.html')
+                login_form.add_error(None, 'Invalid username or password')
+    else:
+        login_form = LoginForm()
+    return render(request, 'login.html', {'form': login_form})
 
 
 @csrf_protect

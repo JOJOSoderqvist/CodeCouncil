@@ -9,24 +9,30 @@
 {% block right_column_styling %}padding-left: 225px;{% endblock right_column_styling %}
 
 {% block content %}
- <form method="post" action="">
+    <form method="post">
         {% csrf_token %}
+        {% if form.non_field_errors %}
+            <ul class="list-group mb-2">
+                {% for error in form.non_field_errors %}
+                    <li class="list-group-item-danger">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         <div class="d-flex flex-column">
-{#        <p style="color: red;">Sorry, wrong password</p>#}
-        <div class="input-group input-group mb-3">
+            <div class="input-group input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing"
               style="padding-left: 45.2px; padding-right: 45.2px;">Login</span>
-            <input type="text" class="form-control" name="django_username">
-        </div>
-        <div class="input-group input-group mb-3">
+                <input type="text" class="form-control" name="django_username">
+            </div>
+            <div class="input-group input-group mb-3">
         <span class="input-group-text" id="inputGroup-sizing"
               style="padding-left: 32px; padding-right: 32px;">Password</span>
-            <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password">
+            </div>
         </div>
-    </div>
-    <button class="btn btn-primary" type="submit" id="login-button"
-            style="padding-left: 45.5px; padding-right: 45.5px;">Login
-    </button>
-</form>
+        <button class="btn btn-primary" type="submit" id="login-button"
+                style="padding-left: 45.5px; padding-right: 45.5px;">Login
+        </button>
+    </form>
 
 {% endblock content %}

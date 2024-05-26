@@ -27,9 +27,8 @@ class RegisterForm(forms.Form):
         return cleaned_data
 
 
-
 class LoginForm(forms.Form):
-    django_username = forms.CharField(max_length=20)
+    django_username = forms.CharField(max_length=20, validators=[unified_username_validator])
     password = forms.CharField()
 
 
