@@ -46,7 +46,7 @@ class Command(BaseCommand):
 
         user_objects = User.objects.all()
         profiles = [Profile(user=user, displayed_name=user.username,
-                            avatar=os.path.join(STATIC_URL, 'img/default_profilepic.jpg')) for user in user_objects]
+                            avatar=os.path.join(STATIC_URL, 'img/default_profile_pic.jpg')) for user in user_objects]
         Profile.objects.bulk_create(profiles)
         profile_objects = Profile.objects.all()
 

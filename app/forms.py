@@ -9,6 +9,7 @@ class RegisterForm(forms.Form):
     username = forms.CharField(validators=[unified_username_validator])
     password = forms.CharField(validators=[external_password_validator])
     repeat_password = forms.CharField()
+    profile_img = forms.ImageField()
 
     def clean(self):
         cleaned_data = super(RegisterForm, self).clean()
@@ -36,13 +37,14 @@ class UserEditForm(forms.Form):
     django_username = forms.CharField(max_length=20, required=False, validators=[unified_username_validator])
     email = forms.EmailField(required=False)
     username = forms.CharField(required=False, validators=[unified_username_validator])
+    profile_img = forms.ImageField(required=False)
 
-    def clean(self):
-        cleaned_data = super(UserEditForm, self).clean()
-        email = cleaned_data.get('email')
-        if not email:
-            self.add_error('email', 'Email field must be in right format')
-        return cleaned_data
+    # def clean(self):
+    #     cleaned_data = super(UserEditForm, self).clean()
+    #     # email = cleaned_data.get('email')
+    #     # if not email:
+    #     #     self.add_error('email', 'Email field must be in right format')
+    #     return cleaned_data
 
 
 class NewQuestionForm(forms.Form):

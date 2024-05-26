@@ -40,19 +40,6 @@ def hot(request):
     return render(request, 'hot.html', {'questions': pages})
 
 
-# @csrf_protect
-# def add_answer(request, single_question):
-#     answer_form = NewAnswerForm(request.POST)
-#     if answer_form.is_valid():
-#         answer = Answer.objects.create(question=single_question, text=answer_form.cleaned_data['answer_text'],
-#                                        user=Profile.objects.get(user=request.user))
-#         answer.save()
-#
-#         single_question.answers_count += 1
-#         single_question.save()
-#         return True
-#     return False
-
 @csrf_protect
 def question(request, question_id):
     try:
@@ -117,14 +104,17 @@ def register(request):
     if request.user.is_authenticated:
         return redirect('index')
     if request.method == 'POST':
-        register_form = RegisterForm(data=request.POST)
+        register_form = RegisterForm(data=request.POST, files=request.FILES)
+        for error in register_form.errors:
+            print(error)
         if register_form.is_valid():
             try:
                 new_user = User.objects.create_user(username=register_form.cleaned_data['django_username'],
                                                     email=register_form.cleaned_data['email'],
                                                     password=register_form.cleaned_data['password'])
                 new_user.save()
-                Profile.objects.create_profile(new_user, register_form.cleaned_data['username'])
+                Profile.objects.create_profile(new_user, register_form.cleaned_data['username'],
+                                               register_form.cleaned_data['profile_img'])
                 user = authenticate(request, username=register_form.cleaned_data['django_username'],
                                     password=register_form.cleaned_data['password'])
                 if user:
@@ -177,7 +167,7 @@ def tag(request, tag_name):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        user_edit_form = UserEditForm(data=request.POST)
+        user_edit_form = UserEditForm(data=request.POST, files=request.FILES)
         if user_edit_form.is_valid():
             current_user_profile, current_user = Profile.objects.get_current_user_profile(request.user)
             user_form_data = user_edit_form.cleaned_data
@@ -187,6 +177,8 @@ def profile(request):
                 current_user.email = user_form_data['email']
             if user_form_data['username']:
                 current_user_profile.displayed_name = user_form_data['username']
+            if user_form_data['profile_img']:
+                current_user_profile.avatar = user_form_data['profile_img']
             current_user_profile.save()
             current_user.save()
             return redirect('profile')

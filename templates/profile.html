@@ -1,6 +1,7 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 
+
 {% block page_title %}
     <h2>Account settings: {{ user.username }}</h2>
 {% endblock page_title %}
@@ -10,7 +11,7 @@
 {% block right_column_styling %}padding-left: 225px;{% endblock right_column_styling %}
 
 {% block content %}
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form.non_field_errors %}
             <ul class="list-group mb-2">
@@ -62,10 +63,11 @@
             <div class="input-group input-group mb-3">
                 <button class="btn me-4" id="upload-avatar-button"
                         onclick="document.getElementById('formFile').click()"
-                        style="padding-left: 14.5px; padding-right: 14.5px;">Upload Avatar
+                        style="padding-left: 14.5px; padding-right: 14.5px;" type="button">Upload Avatar
                 </button>
-                <img src="{% static "img/img2.jpg" %}" width="100" height="100"/>
-                <input style="display: none;" class="form-control form-control" id="formFile" type="file">
+                <img src="{{ request.user.profile.avatar.url }}" id="profile_image" width="100" height="100"/>
+                <input style="display: none;" class="form-control" id="formFile" type="file" name="profile_img"
+                       onchange="document.getElementById('profile_image').src = window.URL.createObjectURL(this.files[0])">
             </div>
         </div>
         <button class="btn btn-primary" type="submit" id="save-button">Save</button>

@@ -133,6 +133,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "node_modules/bootstrap",
 ]
 LOGIN_URL = '/login'
+
+MEDIA_ROOT = BASE_DIR / 'upload'
+MEDIA_URL = '/upload/'
+
 try:
     from app.local_settings import *
 except ImportError:

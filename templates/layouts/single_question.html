@@ -4,7 +4,7 @@
         <div class="col-2 p-2">
             <p class="mb-1">{{ question.user.displayed_name }}</p>
             <div class="w-100 mb-2 d-flex align-items-center" style="height: 100px; overflow: hidden;">
-                <img src="{% static 'img/img.jpg' %}" class="img-fluid" alt="...">
+                <img src="{{ question.user.avatar.url }}" class="img-fluid" alt="...">
             </div>
             <div class="input-group flex-nowrap">
                 <input type="number" value="{{ question.rating }}" class="form-control"/>

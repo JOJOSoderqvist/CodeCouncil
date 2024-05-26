@@ -46,8 +46,8 @@ class TagManager(models.Manager):
 
 class ProfileManager(models.Manager):
     @staticmethod
-    def create_profile(user, displayed_name):
-        user_profile = Profile.objects.create(user=user, displayed_name=displayed_name)
+    def create_profile(user, displayed_name, avatar):
+        user_profile = Profile.objects.create(user=user, displayed_name=displayed_name, avatar=avatar)
         user_profile.save()
 
     def get_current_user_profile(self, user):
@@ -62,7 +62,7 @@ class ProfileManager(models.Manager):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(null=True, blank=True)
+    avatar = models.ImageField(null=True, blank=True, upload_to='img', default='default_profile_pic.jpg')
     displayed_name = models.CharField(max_length=100, unique=True)
     objects = ProfileManager()
 
