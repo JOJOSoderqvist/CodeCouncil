@@ -33,15 +33,22 @@ class LoginForm(forms.Form):
 
 
 class UserEditForm(forms.Form):
-    django_username = forms.CharField(max_length=20, required=False)
+    django_username = forms.CharField(max_length=20, required=False, validators=[unified_username_validator])
     email = forms.EmailField(required=False)
-    username = forms.CharField(required=False)
+    username = forms.CharField(required=False, validators=[unified_username_validator])
+
+    def clean(self):
+        cleaned_data = super(UserEditForm, self).clean()
+        email = cleaned_data.get('email')
+        if not email:
+            self.add_error('email', 'Email field must be in right format')
+        return cleaned_data
 
 
 class NewQuestionForm(forms.Form):
-    title = forms.CharField(max_length=50)
+    title = forms.CharField(max_length=20, validators=[question_title_validator])
     text = forms.CharField(max_length=1000)
-    tags = forms.CharField()
+    tags = forms.CharField(validators=[tags_validator])
 
 
 class NewAnswerForm(forms.Form):
