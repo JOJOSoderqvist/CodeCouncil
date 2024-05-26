@@ -13,9 +13,6 @@ from app.forms import RegisterForm, LoginForm, UserEditForm, NewQuestionForm, Ne
 from app.models import Question, Answer, Tag, Profile
 
 
-# Create your views here.
-
-
 def paginator(object_list, request, elems_per_page=5):
     page_num = request.GET.get('page', 1)
     try:
