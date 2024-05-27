@@ -20,6 +20,12 @@ class QuestionManager(models.Manager):
     def get_by_tag(self, tag_name):
         return self.get_all().filter(tags__name=tag_name)
 
+    def update_question_rating(self, question_id):
+        question = self.get_by_id(question_id)
+        new_rating = self.filter(id=question_id).aggregate(Sum('rating'))['rating__sum']
+        question.rating = new_rating
+        question.save()
+
 
 class AnswerManager(models.Manager):
     def get_answers_for_question(self, q_id):
@@ -58,6 +64,25 @@ class ProfileManager(models.Manager):
         popular_profiles = Profile.objects.all().annotate(Count('question')).values('question__count').order_by(
             '-question__count')[:7].values('displayed_name')
         return popular_profiles
+
+    def set_new_rating(self, user, card_id, card_type, rating):
+        user_profile, _ = self.get_current_user_profile(user)
+        if card_type == 'question':
+            question_rating, created = QuestionRating.objects.get_or_create(user=user_profile, question_id=card_id)
+            question = Question.objects.get(id=card_id)
+            if not created:
+                if rating == 1 and question_rating.value != 1:
+                    question_rating.value = 1
+                elif rating == -1 and question_rating.value != -1:
+                    question_rating.value = -1
+                elif rating == 0:
+                    question_rating.value = 0
+            else:
+                question_rating.value = rating
+
+            Question.objects.update_question_rating(card_id)
+            question_rating.save()
+            return Question.objects.get(id=card_id).rating
 
 
 class Profile(models.Model):

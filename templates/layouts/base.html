@@ -9,6 +9,7 @@
     <title>Ask Me!</title>
     <link rel='stylesheet' href="{% static 'dist/css/bootstrap.min.css' %}">
     <link rel='stylesheet' href="{% static 'css/style.css' %}">
+    {% csrf_token %}
 </head>
 
 <body>
@@ -78,6 +79,6 @@
             </div>
 </main>
 <script src="{% static 'dist/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/like_dislike.js' %}"></script>
+<script src="{% static 'js/changeRating.js' %}"></script>
 </body>
 </html>

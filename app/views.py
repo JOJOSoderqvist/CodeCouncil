@@ -1,13 +1,16 @@
+import json
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db import IntegrityError
-from django.http import HttpResponseNotFound, HttpResponseRedirect, Http404
+from django.http import HttpResponseNotFound, HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_http_methods
 
 from app.forms import RegisterForm, LoginForm, UserEditForm, NewQuestionForm, NewAnswerForm
 from app.models import Question, Answer, Tag, Profile
@@ -38,7 +41,7 @@ def hot(request):
 
 
 @csrf_protect
-def question(request, question_id):
+def question_view(request, question_id):
     try:
         single_question = Question.objects.get_by_id(question_id)
     except Question.DoesNotExist:
@@ -187,3 +190,17 @@ def profile(request):
 def logout_view(request):
     logout(request)
     return redirect(reverse('index'))
+
+
+@require_http_methods(['POST'])
+@login_required
+def change_rating(request, card_id):
+    card_data = json.loads(request.body)
+    card_type = card_data['card_type']
+    current_rating = card_data['current_rating']
+    if card_type == 'question':
+        question = Question.objects.get(id=card_id)
+        current_user = request.user
+        if current_user != question.user:
+            Profile.objects.set_new_rating(current_user, card_id, card_type, current_rating)
+    return JsonResponse({'success': True})
