@@ -22,7 +22,8 @@ class QuestionManager(models.Manager):
 
     def update_question_rating(self, question_id):
         question = self.get_by_id(question_id)
-        new_rating = self.filter(id=question_id).aggregate(Sum('rating'))['rating__sum']
+        new_rating = QuestionRating.objects.filter(question_id=question_id).aggregate(Sum('value')).get('value__sum')
+        print(new_rating)
         question.rating = new_rating
         question.save()
 
@@ -68,9 +69,13 @@ class ProfileManager(models.Manager):
     def set_new_rating(self, user, card_id, card_type, rating):
         user_profile, _ = self.get_current_user_profile(user)
         if card_type == 'question':
-            question_rating, created = QuestionRating.objects.get_or_create(user=user_profile, question_id=card_id)
-            question = Question.objects.get(id=card_id)
-            if not created:
+            try:
+                question_rating = QuestionRating.objects.get(user=user_profile, question_id=card_id)
+            except QuestionRating.DoesNotExist:
+                question_rating = None
+            # question = Question.objects.get(id=card_id)
+            if question_rating is not None:
+
                 if rating == 1 and question_rating.value != 1:
                     question_rating.value = 1
                 elif rating == -1 and question_rating.value != -1:
@@ -78,10 +83,13 @@ class ProfileManager(models.Manager):
                 elif rating == 0:
                     question_rating.value = 0
             else:
-                question_rating.value = rating
+                question_rating = QuestionRating.objects.create(user=user_profile, question_id=card_id, value=rating)
+                # print('here')
+                # question_rating.value = rating
+               # print(question_rating.value)
 
-            Question.objects.update_question_rating(card_id)
             question_rating.save()
+            Question.objects.update_question_rating(card_id)
             return Question.objects.get(id=card_id).rating
 
 

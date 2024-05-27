@@ -196,11 +196,13 @@ def logout_view(request):
 @login_required
 def change_rating(request, card_id):
     card_data = json.loads(request.body)
+    print(card_data)
     card_type = card_data['card_type']
-    current_rating = card_data['current_rating']
+    new_rating = card_data['new_rating']
+    rating = 0
     if card_type == 'question':
         question = Question.objects.get(id=card_id)
         current_user = request.user
         if current_user != question.user:
-            Profile.objects.set_new_rating(current_user, card_id, card_type, current_rating)
-    return JsonResponse({'success': True})
+            rating = Profile.objects.set_new_rating(current_user, card_id, card_type, new_rating)
+    return JsonResponse({'rating': rating})

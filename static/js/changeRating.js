@@ -21,8 +21,9 @@ const changeRating = () => {
     for (const card of cards) {
         const likeButton = card.querySelector('#vote-up-button');
         const dislikeButton = card.querySelector('#vote-down-button');
-        const ratingDisplay = likeButton.querySelector('#rating');
-        const currentRating = card.dataset.cardRating;
+        const ratingDisplay = card.querySelector('#rating');
+        console.log(ratingDisplay)
+        //const currentRating = card.dataset.cardRating;
         const cardId = card.dataset.cardId;
         const cardType = card.dataset.cardType;
         // console.log(card, likeButton, dislikeButton, currentRating, cardId)
@@ -35,14 +36,17 @@ const changeRating = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'current_rating': currentRating,
+                    'new_rating': 1,
                     'card_type': cardType
                 }),
                 mode: 'same-origin'
             });
             fetch(request)
                 .then((response) => response.json())
-                .then((data) => ratingDisplay.innerHTML = data)
+                .then((data) => {
+                    console.log(data);
+                    ratingDisplay.innerHTML = `Rating: ${data['rating']}`
+                })
         })
     }
 }
