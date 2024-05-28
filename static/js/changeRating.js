@@ -17,38 +17,38 @@ function getCookie(name) {
 
 const changeRating = () => {
     const cards = document.querySelectorAll('article');
-    // console.log(cards);
     for (const card of cards) {
         const likeButton = card.querySelector('#vote-up-button');
         const dislikeButton = card.querySelector('#vote-down-button');
         const ratingDisplay = card.querySelector('#rating');
-        console.log(ratingDisplay)
-        //const currentRating = card.dataset.cardRating;
         const cardId = card.dataset.cardId;
         const cardType = card.dataset.cardType;
-        // console.log(card, likeButton, dislikeButton, currentRating, cardId)
+        const baseUrl = window.location.origin;
 
-        likeButton.addEventListener('click', () => {
-            const request = new Request(`${cardId}/change_rating`, {
-                method: 'post',
-                headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'new_rating': 1,
-                    'card_type': cardType
-                }),
-                mode: 'same-origin'
+        [likeButton, dislikeButton].forEach((button) => {
+            button.addEventListener('click', () => {
+                let rating = 0;
+                (button === likeButton) ? rating = 1 : rating = -1;
+                const request = new Request(`${baseUrl}/${cardId}/change_rating`, {
+                    method: 'post',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'new_rating': rating,
+                        'card_type': cardType
+                    }),
+                    mode: 'same-origin'
+                });
+                fetch(request)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        ratingDisplay.innerHTML = `Rating: ${data['rating']}`
+                    })
             });
-            fetch(request)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    ratingDisplay.innerHTML = `Rating: ${data['rating']}`
-                })
-        })
+        });
     }
 }
 
-changeRating()
+changeRating();

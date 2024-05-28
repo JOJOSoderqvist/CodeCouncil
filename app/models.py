@@ -23,7 +23,6 @@ class QuestionManager(models.Manager):
     def update_question_rating(self, question_id):
         question = self.get_by_id(question_id)
         new_rating = QuestionRating.objects.filter(question_id=question_id).aggregate(Sum('value')).get('value__sum')
-        print(new_rating)
         question.rating = new_rating
         question.save()
 
@@ -31,6 +30,15 @@ class QuestionManager(models.Manager):
 class AnswerManager(models.Manager):
     def get_answers_for_question(self, q_id):
         return self.all().filter(question_id=q_id).order_by('created_at')
+
+    def get_by_id(self, answer_id):
+        return self.all().get(id=answer_id)
+
+    def update_answer_rating(self, answer_id):
+        answer = self.get_by_id(answer_id)
+        new_rating = AnswerRating.objects.filter(answer_id=answer_id).aggregate(Sum('value')).get('value__sum')
+        answer.rating = new_rating
+        answer.save()
 
 
 class TagManager(models.Manager):
@@ -47,7 +55,6 @@ class TagManager(models.Manager):
         for tag in tags:
             tag_object, _ = Tag.objects.get_or_create(name=tag)
             tag_objects.append((tag_object.name, tag_object.id))
-        print(tag_objects)
         return tag_objects
 
 
@@ -73,24 +80,37 @@ class ProfileManager(models.Manager):
                 question_rating = QuestionRating.objects.get(user=user_profile, question_id=card_id)
             except QuestionRating.DoesNotExist:
                 question_rating = None
-            # question = Question.objects.get(id=card_id)
             if question_rating is not None:
-
                 if rating == 1 and question_rating.value != 1:
-                    question_rating.value = 1
+                    question_rating.value += 1
                 elif rating == -1 and question_rating.value != -1:
-                    question_rating.value = -1
+                    question_rating.value -= 1
                 elif rating == 0:
                     question_rating.value = 0
             else:
                 question_rating = QuestionRating.objects.create(user=user_profile, question_id=card_id, value=rating)
-                # print('here')
-                # question_rating.value = rating
-               # print(question_rating.value)
 
             question_rating.save()
             Question.objects.update_question_rating(card_id)
             return Question.objects.get(id=card_id).rating
+
+        elif card_type == 'answer':
+            try:
+                answer_rating = AnswerRating.objects.get(user=user_profile, answer_id=card_id)
+            except AnswerRating.DoesNotExist:
+                answer_rating = None
+            if answer_rating is not None:
+                if rating == 1 and answer_rating.value != 1:
+                    answer_rating.value += 1
+                elif rating == -1 and answer_rating.value != -1:
+                    answer_rating.value -= 1
+                elif rating == 0:
+                    answer_rating.value = 0
+            else:
+                answer_rating = AnswerRating.objects.create(user=user_profile, answer_id=card_id, value=rating)
+            answer_rating.save()
+            Answer.objects.update_answer_rating(card_id)
+            return Answer.objects.get(id=card_id).rating
 
 
 class Profile(models.Model):
