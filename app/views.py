@@ -209,3 +209,10 @@ def change_rating(request, card_id):
         if current_user != answer.user:
             rating = Profile.objects.set_new_rating(current_user, card_id, card_type, new_rating)
     return JsonResponse({'rating': rating})
+
+
+def change_answer_correct(request, answer_id):
+    request_data = json.loads(request.body)
+    is_correct = request_data['is_correct']
+    new_correctness = Answer.objects.change_correctness(answer_id, is_correct)
+    return JsonResponse({'new_correctness': new_correctness})

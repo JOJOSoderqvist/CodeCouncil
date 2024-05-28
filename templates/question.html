@@ -8,7 +8,7 @@
         {% for answer in answers %}
             {% include "layouts/answer.html" %}
         {% endfor %}
-        {% include "layouts/pagination.html" with pages=answers %}
+        {% include "layouts/pagination.html" with pages=answers question=question %}
     {% endif %}
     <hr>
     <form method="post">

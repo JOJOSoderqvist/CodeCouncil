@@ -40,6 +40,12 @@ class AnswerManager(models.Manager):
         answer.rating = new_rating
         answer.save()
 
+    def change_correctness(self, answer_id, is_correct):
+        answer = self.get_by_id(answer_id)
+        answer.is_correct = is_correct
+        answer.save()
+        return answer.is_correct
+
 
 class TagManager(models.Manager):
     @staticmethod

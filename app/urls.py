@@ -16,6 +16,7 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('logout/', views.logout_view, name='logout'),
     path('<int:card_id>/change_rating', views.change_rating, name='change_rating'),
+    path('<int:answer_id>/change_is_correct', views.change_answer_correct, name='change_rating'),
 ]
 
 if settings.DEBUG:

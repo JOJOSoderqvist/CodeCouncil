@@ -15,7 +15,7 @@ function getCookie(name) {
 }
 
 
-const changeRating = () => {
+const script = () => {
     const cards = document.querySelectorAll('article');
     for (const card of cards) {
         const likeButton = card.querySelector('#vote-up-button');
@@ -51,4 +51,35 @@ const changeRating = () => {
     }
 }
 
-changeRating();
+const changeIfCorrect = () => {
+    const answers = document.querySelectorAll("[data-card-type='answer']");
+    const baseUrl = window.location.origin;
+    let is_correct = false;
+    answers.forEach((answer) => {
+        const answerId = answer.dataset.cardId;
+        const inputElement = answer.querySelector('#is-correct-input')
+        inputElement.addEventListener('change', () => {
+            is_correct = !!inputElement.checked;
+            const request = new Request(`${baseUrl}/${answerId}/change_is_correct`, {
+                method: 'post',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'is_correct': is_correct
+                }),
+                mode: 'same-origin'
+            });
+            fetch(request)
+                .then((response) => response.json())
+                .then((data) => {
+                    inputElement.checked = data['new_correctness'];
+                })
+        });
+    });
+
+}
+
+script();
+changeIfCorrect();
