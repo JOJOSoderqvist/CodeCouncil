@@ -15,7 +15,7 @@ function getCookie(name) {
 }
 
 
-const script = () => {
+const changeRating = () => {
     const cards = document.querySelectorAll('article');
     for (const card of cards) {
         const likeButton = card.querySelector('#vote-up-button');
@@ -44,7 +44,9 @@ const script = () => {
                 fetch(request)
                     .then((response) => response.json())
                     .then((data) => {
-                        ratingDisplay.innerHTML = `Rating: ${data['rating']}`
+                        if (data['rating'] !== ' ') {
+                            ratingDisplay.innerHTML = `Rating: ${data['rating']}`
+                        }
                     })
             });
         });
@@ -81,5 +83,5 @@ const changeIfCorrect = () => {
 
 }
 
-script();
+changeRating();
 changeIfCorrect();

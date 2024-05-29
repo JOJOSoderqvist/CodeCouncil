@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db import IntegrityError
-from django.http import HttpResponseNotFound, HttpResponseRedirect, Http404, JsonResponse
+from django.http import HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -133,6 +133,8 @@ def tags_parser(tags_string):
         tags_array = tags_string.split(',')
     elif ' ' in tags_string:
         tags_array = tags_string.split(' ')
+    else:
+        tags_array.append(tags_string)
     tags_objects = Tag.objects.get_ot_create_tags(tags_array)
     return tags_objects
 
@@ -200,17 +202,25 @@ def change_rating(request, card_id):
     card_type = card_data['card_type']
     new_rating = card_data['new_rating']
     rating = 0
+    is_rating_changed = False
     if card_type == 'question':
         question = Question.objects.get(id=card_id)
-        if current_user != question.user:
+        if current_user != question.user.user:
             rating = Profile.objects.set_new_rating(current_user, card_id, card_type, new_rating)
+            is_rating_changed = True
     elif card_type == 'answer':
         answer = Answer.objects.get(id=card_id)
-        if current_user != answer.user:
+        if current_user != answer.user.user:
             rating = Profile.objects.set_new_rating(current_user, card_id, card_type, new_rating)
-    return JsonResponse({'rating': rating})
+            is_rating_changed = True
+    if is_rating_changed:
+        return JsonResponse({'rating': rating})
+    else:
+        return JsonResponse({'rating': ' '})
 
 
+@require_http_methods(['POST'])
+@login_required
 def change_answer_correct(request, answer_id):
     request_data = json.loads(request.body)
     is_correct = request_data['is_correct']
