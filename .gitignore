@@ -128,3 +128,12 @@ GitHub.sublime-settings
 
 # Visual Studio Code #  
 .vscode/
+
+/static/admin
+/static/css
+/static/js/dist
+/static/js/src
+/static/scss
+/static/LICENSE
+/static/package.json
+/static/README.md

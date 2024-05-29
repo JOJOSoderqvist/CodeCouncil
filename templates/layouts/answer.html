@@ -45,7 +45,11 @@
                                 <input class="form-check-input" type="checkbox" id="is-correct-input">
                             {% endif %}
                         {% else %}
-                            <input class="form-check-input" type="checkbox" id="is-correct-input" disabled>
+                            {% if answer.is_correct %}
+                                <input class="form-check-input" type="checkbox" id="is-correct-input" checked disabled>
+                            {% else %}
+                                <input class="form-check-input" type="checkbox" id="is-correct-input" disabled>
+                            {% endif %}
                         {% endif %}
 
 
