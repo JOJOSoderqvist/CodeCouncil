@@ -1,7 +1,6 @@
 @startuml
 
 class Пользователь {
-    + userID: int
     + login: String
     + username: String
     + email: String
@@ -13,20 +12,17 @@ class Профиль {
 }
 
 class Вопрос {
-    + questionID: int
     + title: String
     + text: String
     + rating: int
 }
 
 class Ответ {
-    + answerID: int
     + text: String
     + rating: int
 }
 
 class Тег {
-    + tagID: int
     + name: String
 }
 
