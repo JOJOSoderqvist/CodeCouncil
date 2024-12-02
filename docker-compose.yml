@@ -1,0 +1,25 @@
+services:
+  askme_db:
+    image: postgres:16.4
+    ports:
+      - "54321:5432"
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - askme_data:/var/lib/postgresql/data/
+    container_name: askme_db
+    restart: unless-stopped
+    networks:
+      - app-network
+
+
+volumes:
+  askme_data:
+
+networks:
+  app-network:
+    driver: bridge
