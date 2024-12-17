@@ -3,7 +3,7 @@
 
 
 {% block page_title %}
-    <h2>Account settings: {{ user.username }}</h2>
+    <h2>Настройки аккаунта: {{ user.username }}</h2>
 {% endblock page_title %}
 
 {% block left_column_class %}col-5{% endblock left_column_class %}
@@ -23,7 +23,7 @@
         <div class="d-flex flex-column">
             <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                  style="padding-left: 45.2px; padding-right: 45.2px;">Login</span>
+                  style="padding-left: 45.2px; padding-right: 45.2px;">Имя пользователя</span>
                 <input type="text" class="form-control {% if form.django_username.errors %}is-invalid{% endif %}"
                        name="django_username" value="{{ form.django_username.value|default_if_none:'' }}">
             </div>
@@ -36,7 +36,7 @@
             {% endif %}
             <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                  style="padding-left: 46px; padding-right: 46px;">Email</span>
+                  style="padding-left: 46px; padding-right: 46px;">Почта</span>
                 <input type="text" class="form-control {% if form.email.errors %}is-invalid{% endif %}" name="email"
                        value="{{ form.email.value|default_if_none:'' }}">
             </div>
@@ -49,7 +49,7 @@
             {% endif %}
             <div class="input-group input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing"
-                  style="padding-left: 29.5px; padding-right: 29.5px;">Username</span>
+                  style="padding-left: 29.5px; padding-right: 29.5px;">Отображаемое имя</span>
                 <input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}"
                        name="username" value="{{ form.username.value|default_if_none:'' }}">
             </div>
@@ -63,13 +63,13 @@
             <div class="input-group input-group mb-3">
                 <button class="btn me-4" id="upload-avatar-button"
                         onclick="document.getElementById('formFile').click()"
-                        style="padding-left: 14.5px; padding-right: 14.5px;" type="button">Upload Avatar
+                        style="padding-left: 14.5px; padding-right: 14.5px;" type="button">Загрузить аватар
                 </button>
                 <img src="{{ request.user.profile.avatar.url }}" id="profile_image" width="100" height="100"/>
                 <input style="display: none;" class="form-control" id="formFile" type="file" name="profile_img"
                        onchange="document.getElementById('profile_image').src = window.URL.createObjectURL(this.files[0])">
             </div>
         </div>
-        <button class="btn btn-primary" type="submit" id="save-button">Save</button>
+        <button class="btn btn-primary" type="submit" id="save-button">Сохранить</button>
     </form>
 {% endblock content %}

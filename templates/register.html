@@ -22,7 +22,7 @@
         <div class="d-flex flex-column">
             <div class="input-group input-group mb-3">
                 <label class="input-group-text" id="inputGroup-sizing" for="loginInput"
-                       style="padding-left: 45.2px; padding-right: 45.2px;">Login</label>
+                       style="padding-left: 45.2px; padding-right: 45.2px;">Имя пользователя</label>
                 <input type="text" class="form-control {% if form.django_username.errors %}is-invalid{% endif %}"
                        id="loginInput" name="django_username"
                        value="{{ form.django_username.value|default_if_none:'' }}">
@@ -37,7 +37,7 @@
 
             <div class="input-group input-group mb-3">
                 <label class="input-group-text" id="inputGroup-sizing" for="emailInput"
-                       style="padding-left: 46px; padding-right: 46px;">Email</label>
+                       style="padding-left: 46px; padding-right: 46px;">Почта</label>
                 <input type="text" class="form-control {% if form.email.errors %}is-invalid{% endif %}" id="emailInput"
                        name="email"
                        value="{{ form.email.value|default_if_none:'' }}">
@@ -52,7 +52,7 @@
 
             <div class="input-group input-group mb-3">
                 <label class="input-group-text" id="inputGroup-sizing" for="usernameInput"
-                       style="padding-left: 29.5px; padding-right: 29.5px;">Username</label>
+                       style="padding-left: 29.5px; padding-right: 29.5px;">Отображаемое имя</label>
                 <input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}"
                        id="usernameInput" name="username"
                        value="{{ form.username.value|default_if_none:'' }}">
@@ -67,7 +67,7 @@
 
             <div class="input-group input-group mb-3">
                 <label class="input-group-text" id="inputGroup-sizing" for="passwordInput"
-                       style="padding-left: 32px; padding-right: 32px;">Password</label>
+                       style="padding-left: 32px; padding-right: 32px;">Пароль</label>
                 <input type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}"
                        id="passwordInput" name="password">
             </div>
@@ -81,7 +81,7 @@
 
             <div class="input-group input-group mb-3">
                 <label class="input-group-text" id="inputGroup-sizing" for="repeatPasswordInput"
-                       style="padding-left: 32px; padding-right: 32px;">Repeat <br> Password</label>
+                       style="padding-left: 32px; padding-right: 32px;">Повторите <br> пароль</label>
                 <input type="password" class="form-control {% if form.repeat_password.errors %}is-invalid{% endif %}"
                        id="repeatPasswordInput" name="repeat_password">
             </div>

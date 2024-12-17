@@ -14,7 +14,7 @@
                     </svg>
                 </button>
                 <div class="input-group flex-nowrap mb-1" style="width: 70px;">
-                    <p class="form-control text-center p-1 m-0" id="rating" style="font-size: 12px;">Rating: {{ question.rating }}</p>
+                    <p class="form-control text-center p-1 m-0" id="rating" style="font-size: 11px;">Рейтинг: {{ question.rating }}</p>
                 </div>
                 <button class="btn btn-primary btn-sm mb-1 ms-1" id="vote-down-button" style="width: 30px; height: 30px; padding: 0; background-color: #4f565e; border-color: #4f565e">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-square" viewBox="0 0 16 16">
@@ -32,9 +32,9 @@
                     {{ question.text }}
                 </p>
                 <div class="row">
-                    <a class="col-4" href="{% url "question" question.id %}">answers ({{ question.answers_count }})</a>
+                    <a class="col-4" href="{% url "question" question.id %}">ответы ({{ question.answers_count }})</a>
                     <div class="col-8">
-                        <span>Tags:</span>
+                        <span>Теги:</span>
                         {% for tag in question.tags.all %}
                             <a href="{% url "tag" tag.name %}">{{ tag.name }}</a>
                         {% endfor %}

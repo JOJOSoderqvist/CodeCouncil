@@ -1,12 +1,12 @@
 {% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 
 
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Ask Me!</title>
+    <title>CodeCounsil</title>
     <link rel='stylesheet' href="{% static 'dist/css/bootstrap.min.css' %}">
     <link rel='stylesheet' href="{% static 'css/style.css' %}">
     {% csrf_token %}
@@ -16,30 +16,30 @@
 <nav class="navbar bg-body-tertiary fixed-top" style="background-color: #232427;">
     <div class="container-sm-fluid container-lg d-flex justify-conte">
 
-        <a class="navbar-brand" href="{% url "index" %}" style="color: #fff;">Ask Me!</a>
+        <a class="navbar-brand" href="{% url "index" %}" style="color: #fff;">CodeCounsil</a>
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button class="btn btn-outline-light" type="submit" id="search-button">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск"/>
+            <button class="btn btn-outline-light" type="submit" id="search-button">Поиск</button>
         </form>
         {% if user.is_authenticated %}
         <div class="d-flex justify-content-between gap-3 me-4">
             <div class="d-flex justify-content-center me-4">
-                <a class="btn btn-outline-light" href="{% url "ask" %}" style="padding-top: 13px">Ask!</a>
+                <a class="btn btn-outline-light" href="{% url "ask" %}" style="padding-top: 13px">Задать вопрос!</a>
             </div>
             <div class="border">
                 <img src="{{ user.profile.avatar.url }}" width="50" height="50"/>
             </div>
             <div class="d-flex flex-column justify-content-between">
                 <a href="{% url "profile" %}">{{ user.username }}</a>
-                <a href="{% url "logout" %}">Log out</a>
+                <a href="{% url "logout" %}">Выйти</a>
             </div>
         </div>    
         {% else %}
         <div class="d-flex justify-content-between gap-3">
             <div class="d-flex flex-row justify-content-center mt-3">
-                <a href="{% url "login" %}" class="me-2">Login</a>
-                <p>or</p>
-                <a href="{% url "register" %}" class="ms-2">Register</a>
+                <a href="{% url "login" %}" class="me-2">Войти</a>
+                <p>или</p>
+                <a href="{% url "register" %}" class="ms-2">Зарегистрироваться</a>
             </div>
         </div>
         {% endif %}
@@ -58,7 +58,7 @@
         </div>
         <div class="{% block right_column_class %}col-4{% endblock right_column_class %}"
              style="{% block right_column_styling %}{% endblock right_column_styling %}">
-            <h3>Popular Tags</h3>
+            <h3>Популярные теги</h3>
             <div class="row">
                 <div class="col">
                     {% for popular_tag in tags %}
@@ -69,7 +69,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <h3 class=" mt-5">Best Members</h3>
+            <h3 class=" mt-5">Лучшие пользователи</h3>
                     <div>
                         {% for popular_profile in profiles %}
                             <a class="d-block" disabled="true">{{ popular_profile }}</a>

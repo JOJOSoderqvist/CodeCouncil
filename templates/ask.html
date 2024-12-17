@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block page_title %}
-    <h2>New Question</h2>
+    <h2>Новый вопрос</h2>
 {% endblock page_title %}
 
 {% block left_column_class %}col-7{% endblock left_column_class %}
@@ -22,7 +22,7 @@
         <div class="d-flex flex-column">
             <div class="input-group input-group-lg mb-3">
             <span class="input-group-text" id="inputGroup-sizing-lg"
-                  style="padding-left: 18px; padding-right: 18px;">Title</span>
+                  style="padding-left: 18px; padding-right: 18px;">Название</span>
                 <input type="text" class="form-control {% if form.title.errors %}is-invalid{% endif %}" name="title" value="{{ form.title.value|default_if_none:'' }}">
             </div>
             {% if form.title.errors %}
@@ -34,7 +34,7 @@
             {% endif %}
             <div class="input-group input-group-lg mb-3">
             <span class="input-group-text" id="inputGroup-sizing-lg"
-                  style="padding-left: 19px; padding-right: 19px;">Text</span>
+                  style="padding-left: 19px; padding-right: 19px;">Текст</span>
                 <textarea type="text" class="form-control {% if form.text.errors %}is-invalid{% endif %}" name="text">{{ form.text.value|default_if_none:'' }}</textarea>
             </div>
             {% if form.text.errors %}
@@ -46,7 +46,7 @@
             {% endif %}
             <div class="input-group input-group-lg mb-3">
             <span class="input-group-text" id="inputGroup-sizing-lg"
-                  style="padding-left: 17px; padding-right: 17px;">Tags</span>
+                  style="padding-left: 17px; padding-right: 17px;">Теги</span>
                 <input type="text" class="form-control {% if form.tags.errors %}is-invalid{% endif %}" name="tags" value="{{ form.tags.value|default_if_none:'' }}">
             </div>
             {% if form.tags.errors %}
@@ -57,6 +57,6 @@
                 </div>
             {% endif %}
         </div>
-        <button class="btn btn-primary" type="submit" id="ask-button">Ask</button>
+        <button class="btn btn-primary" type="submit" id="ask-button">Задать вопрос</button>
     </form>
 {% endblock content %}
