@@ -14,18 +14,18 @@
     <form method="post">
         {% csrf_token %}
         <div class="input-group input-group-lg mb-3 mx-auto" style="max-width: 80%;">
-        <span class="input-group-text" id="inputGroup-sizing-lg"
-              style="padding-left: 19px; padding-right: 19px;">Введите <br> свой <br> ответ</span>
-            <textarea type="text" class="form-control" style="height: 150px;"
-                      name="answer_text">{{ form.answer_text.value|default_if_none:'' }}</textarea>
-            <button class="btn" type="submit" id="answer-button">Ответить</button>
-            {% if form.answer_text.errors %}
-                <div class="invalid-feedback d-block">
-                    {% for error in form.answer_text.errors %}
-                        <div>{{ error }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+            <span class="input-group-text" id="inputGroup-sizing-lg" style="align-items: center">Введите <br> свой <br> ответ</span>
+            <textarea type="text" class="form-control"
+                      name="answer_text" id="answer-area">{{ form.answer_text.value|default_if_none:'' }}</textarea>
+            <button class="btn btn-primary" type="submit" id="answer-button">Ответить</button>
         </div>
+        {% if form.answer_text.errors %}
+            <div class="invalid-feedback d-block">
+                {% for error in form.answer_text.errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </form>
+
 {% endblock content %}

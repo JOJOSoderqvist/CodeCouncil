@@ -21,8 +21,7 @@
         {% endif %}
         <div class="d-flex flex-column">
             <div class="input-group input-group-lg mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-lg"
-                  style="padding-left: 18px; padding-right: 18px;">Название</span>
+            <span class="input-group-text" id="inputGroup-sizing-lg">Название</span>
                 <input type="text" class="form-control {% if form.title.errors %}is-invalid{% endif %}" name="title" value="{{ form.title.value|default_if_none:'' }}">
             </div>
             {% if form.title.errors %}
@@ -33,9 +32,8 @@
                 </div>
             {% endif %}
             <div class="input-group input-group-lg mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-lg"
-                  style="padding-left: 19px; padding-right: 19px;">Текст</span>
-                <textarea type="text" class="form-control {% if form.text.errors %}is-invalid{% endif %}" name="text">{{ form.text.value|default_if_none:'' }}</textarea>
+            <span class="input-group-text" id="inputGroup-sizing-lg" style="height: 110px">Текст</span>
+                <textarea type="text" class="form-control {% if form.text.errors %}is-invalid{% endif %}" name="text" style="height: 110px">{{ form.text.value|default_if_none:'' }}</textarea>
             </div>
             {% if form.text.errors %}
                 <div class="invalid-feedback d-block">
@@ -45,8 +43,7 @@
                 </div>
             {% endif %}
             <div class="input-group input-group-lg mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-lg"
-                  style="padding-left: 17px; padding-right: 17px;">Теги</span>
+            <span class="input-group-text" id="inputGroup-sizing-lg">Теги</span>
                 <input type="text" class="form-control {% if form.tags.errors %}is-invalid{% endif %}" name="tags" value="{{ form.tags.value|default_if_none:'' }}">
             </div>
             {% if form.tags.errors %}

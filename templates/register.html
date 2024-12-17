@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block page_title %}
-    <h2>Registration</h2>
+    <h2>Регистрация</h2>
 {% endblock page_title %}
 
 {% block left_column_class %}col-5{% endblock left_column_class %}
@@ -21,8 +21,7 @@
         {% endif %}
         <div class="d-flex flex-column">
             <div class="input-group input-group mb-3">
-                <label class="input-group-text" id="inputGroup-sizing" for="loginInput"
-                       style="padding-left: 45.2px; padding-right: 45.2px;">Имя пользователя</label>
+                <label class="input-group-text" id="inputGroup-sizing" for="loginInput">Имя пользователя</label>
                 <input type="text" class="form-control {% if form.django_username.errors %}is-invalid{% endif %}"
                        id="loginInput" name="django_username"
                        value="{{ form.django_username.value|default_if_none:'' }}">
@@ -36,8 +35,7 @@
             {% endif %}
 
             <div class="input-group input-group mb-3">
-                <label class="input-group-text" id="inputGroup-sizing" for="emailInput"
-                       style="padding-left: 46px; padding-right: 46px;">Почта</label>
+                <label class="input-group-text" id="inputGroup-sizing" for="emailInput">Почта</label>
                 <input type="text" class="form-control {% if form.email.errors %}is-invalid{% endif %}" id="emailInput"
                        name="email"
                        value="{{ form.email.value|default_if_none:'' }}">
@@ -51,8 +49,7 @@
             {% endif %}
 
             <div class="input-group input-group mb-3">
-                <label class="input-group-text" id="inputGroup-sizing" for="usernameInput"
-                       style="padding-left: 29.5px; padding-right: 29.5px;">Отображаемое имя</label>
+                <label class="input-group-text" id="inputGroup-sizing" for="usernameInput">Отображаемое имя</label>
                 <input type="text" class="form-control {% if form.username.errors %}is-invalid{% endif %}"
                        id="usernameInput" name="username"
                        value="{{ form.username.value|default_if_none:'' }}">
@@ -66,8 +63,7 @@
             {% endif %}
 
             <div class="input-group input-group mb-3">
-                <label class="input-group-text" id="inputGroup-sizing" for="passwordInput"
-                       style="padding-left: 32px; padding-right: 32px;">Пароль</label>
+                <label class="input-group-text" id="inputGroup-sizing" for="passwordInput">Пароль</label>
                 <input type="password" class="form-control {% if form.password.errors %}is-invalid{% endif %}"
                        id="passwordInput" name="password">
             </div>
@@ -80,8 +76,7 @@
             {% endif %}
 
             <div class="input-group input-group mb-3">
-                <label class="input-group-text" id="inputGroup-sizing" for="repeatPasswordInput"
-                       style="padding-left: 32px; padding-right: 32px;">Повторите <br> пароль</label>
+                <label class="input-group-text" id="inputGroup-sizing" for="repeatPasswordInput">Повторите пароль</label>
                 <input type="password" class="form-control {% if form.repeat_password.errors %}is-invalid{% endif %}"
                        id="repeatPasswordInput" name="repeat_password">
             </div>
@@ -95,8 +90,7 @@
 
             <div class="input-group input-group mb-3">
                 <button class="btn me-4" id="upload-avatar-button"
-                        style="padding-left: 14.5px; padding-right: 14.5px;"
-                        onclick="document.getElementById('formFile').click()" type="button">Upload Avatar
+                        onclick="document.getElementById('formFile').click()" type="button">Загрузить аватар
                 </button>
                 <img id="default_register_profile_image" src="../upload/img/default_profile_pic.jpg" width="100"
                      height="100" alt="defaultProfilePic"/>
@@ -106,7 +100,7 @@
 
             <div class="input-group input-group mb-3">
                 <button class="btn btn-primary" type="submit" id="register-button"
-                        style="padding-left: 36.5px; padding-right: 36.5px;">Register
+                        style="padding-left: 36.5px; padding-right: 36.5px;">Зарегистрироваться
                 </button>
             </div>
         </div>
