@@ -2,7 +2,10 @@
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <div class="form-group mb-3">
+            <label for="id_text">Текст:</label>
+            <textarea class="form-control" id="id_text" name="text" rows="5">{{ form.text.value|default_if_none:'' }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="edit-answer-save-button">Сохранить</button>
     </form>
 {% endblock %}

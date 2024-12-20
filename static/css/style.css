@@ -92,7 +92,7 @@ textarea {
     border-color: rgb(206, 212, 218);
 }
 
-#upload-avatar-button, #register-button, #login-button, #answer-button {
+#upload-avatar-button, #register-button, #login-button, #answer-button, #edit-answer-save-button, #edit-question-save-button {
     background-color: #4f565e;
     color: lightgoldenrodyellow;
     border-color: rgb(206, 212, 218);
@@ -127,7 +127,7 @@ hr {
     border-color: lightgoldenrodyellow;
 }
 
-#answer-button:hover, #register-button:hover, #upload-avatar-button:hover, #ask-button:hover, #login-button:hover, #save-button:hover {
+#answer-button:hover, #register-button:hover, #upload-avatar-button:hover, #ask-button:hover, #login-button:hover, #save-button:hover, #edit-answer-save-button:hover, #edit-question-save-button:hover {
     background-color: #232427;
 }
 
@@ -144,11 +144,6 @@ hr {
     height: 108px;
     padding: 0 15px;
 }
-
-/*.form-control {*/
-/*    resize: none;*/
-/*    height: 108px;*/
-/*}*/
 
 #answer-area {
     white-space: nowrap;

@@ -32,8 +32,8 @@
                     {{ question.text }}
                 </p>
                 {% if question.user.user_id == user.id %}
-                    <a href="{% url 'edit_question' question.id %}" class="btn btn-warning btn-sm">Редактировать</a>
-                    <a href="{% url 'delete_question' question.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                    <a href="{% url 'edit_question' question.id %}" class="btn btn-warning btn-sm mb-4">Редактировать</a>
+                    <a href="{% url 'delete_question' question.id %}" class="btn btn-danger btn-sm mb-4">Удалить</a>
                 {% endif %}
 
                 <div class="row">

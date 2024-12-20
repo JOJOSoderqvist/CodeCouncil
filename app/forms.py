@@ -57,8 +57,9 @@ class NewAnswerForm(forms.Form):
     answer_text = forms.CharField(max_length=1000)
 
 class EditQuestionForm(forms.Form):
-    title = forms.CharField(max_length=20, validators=[question_title_validator])
-    text = forms.CharField(max_length=1000)
+    title = forms.CharField(max_length=20, validators=[question_title_validator], label="Заголовок")
+    text = forms.CharField(max_length=1000, label="Текст")
 
 class EditAnswerForm(forms.Form):
-    text = forms.CharField(max_length=1000)
+    text = forms.CharField(widget=forms.Textarea(attrs={'rows': 5}), label="Текст ответа")
+
