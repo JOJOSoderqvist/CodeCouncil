@@ -15,10 +15,9 @@
 <body>
 <nav class="navbar bg-body-tertiary fixed-top" style="background-color: #232427;">
     <div class="container-sm-fluid container-lg d-flex justify-conte">
-
         <a class="navbar-brand" href="{% url "index" %}" style="color: #fff;">CodeCounsil</a>
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск"/>
+        <form class="d-flex" role="search" action="{% url 'search' %}" method="get">
+            <input class="form-control me-2" type="search" name="q" placeholder="Поиск по вопросам и тегам" aria-label="Поиск">
             <button class="btn btn-outline-light" type="submit" id="search-button">Поиск</button>
         </form>
         {% if user.is_authenticated %}

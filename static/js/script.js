@@ -45,7 +45,7 @@ const changeRating = () => {
                     .then((response) => response.json())
                     .then((data) => {
                         if (data['rating'] !== ' ') {
-                            ratingDisplay.innerHTML = `Rating: ${data['rating']}`
+                            ratingDisplay.innerHTML = `Рейтинг: ${data['rating']}`
                         }
                     })
             });

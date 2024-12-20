@@ -36,6 +36,10 @@
                 <p class="answer-card-text">
                     {{ answer.text }}
                 </p>
+                {% if answer.user.user_id == user.id %}
+                    <a href="{% url 'edit_answer' answer.id %}" class="btn btn-warning btn-sm">Редактировать</a>
+                    <a href="{% url 'delete_answer' answer.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                {% endif %}
                 <div class="row mt-5">
                     <div class="form-check">
                         {% if question.user.user_id == user.id %}

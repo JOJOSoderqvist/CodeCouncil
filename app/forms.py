@@ -55,3 +55,10 @@ class NewQuestionForm(forms.Form):
 
 class NewAnswerForm(forms.Form):
     answer_text = forms.CharField(max_length=1000)
+
+class EditQuestionForm(forms.Form):
+    title = forms.CharField(max_length=20, validators=[question_title_validator])
+    text = forms.CharField(max_length=1000)
+
+class EditAnswerForm(forms.Form):
+    text = forms.CharField(max_length=1000)

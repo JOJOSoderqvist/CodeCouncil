@@ -31,6 +31,11 @@
                 <p class="card-text">
                     {{ question.text }}
                 </p>
+                {% if question.user.user_id == user.id %}
+                    <a href="{% url 'edit_question' question.id %}" class="btn btn-warning btn-sm">Редактировать</a>
+                    <a href="{% url 'delete_question' question.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                {% endif %}
+
                 <div class="row">
                     <a class="col-4" href="{% url "question" question.id %}">ответы ({{ question.answers_count }})</a>
                     <div class="col-8">

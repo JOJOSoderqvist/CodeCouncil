@@ -11,8 +11,12 @@ from django.urls import reverse
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
-from app.forms import RegisterForm, LoginForm, UserEditForm, NewQuestionForm, NewAnswerForm
+
+from app.forms import RegisterForm, LoginForm, UserEditForm, NewQuestionForm, NewAnswerForm, EditQuestionForm, \
+    EditAnswerForm
 from app.models import Question, Answer, Tag, Profile
 
 
@@ -194,6 +198,18 @@ def logout_view(request):
     return redirect(reverse('index'))
 
 
+def search(request):
+    query = request.GET.get('q', '').strip()
+    if query:
+        results = Question.objects.filter(
+            Q(title__icontains=query) | Q(tags__name__icontains=query)
+        ).distinct()
+    else:
+        results = Question.objects.none()
+
+    pages = paginator(results, request)
+    return render(request, 'search_results.html', {'questions': pages, 'query': query})
+
 @require_http_methods(['POST'])
 @login_required
 def change_rating(request, card_id):
@@ -226,3 +242,43 @@ def change_answer_correct(request, answer_id):
     is_correct = request_data['is_correct']
     new_correctness = Answer.objects.change_correctness(answer_id, is_correct)
     return JsonResponse({'new_correctness': new_correctness})
+
+@login_required
+def edit_question(request, question_id):
+    question = get_object_or_404(Question, id=question_id, user__user=request.user)
+    if request.method == 'POST':
+        form = EditQuestionForm(request.POST)
+        if form.is_valid():
+            question.title = form.cleaned_data['title']
+            question.text = form.cleaned_data['text']
+            question.save()
+            return redirect('question', question_id=question.id)
+    else:
+        form = EditQuestionForm(initial={'title': question.title, 'text': question.text})
+    return render(request, 'edit_question.html', {'form': form})
+
+@login_required
+def delete_question(request, question_id):
+    question = get_object_or_404(Question, id=question_id, user__user=request.user)
+    question.delete()
+    return redirect('index')
+
+@login_required
+def edit_answer(request, answer_id):
+    answer = get_object_or_404(Answer, id=answer_id, user__user=request.user)
+    if request.method == 'POST':
+        form = EditAnswerForm(request.POST)
+        if form.is_valid():
+            answer.text = form.cleaned_data['text']
+            answer.save()
+            return redirect('question', question_id=answer.question.id)
+    else:
+        form = EditAnswerForm(initial={'text': answer.text})
+    return render(request, 'edit_answer.html', {'form': form})
+
+@login_required
+def delete_answer(request, answer_id):
+    answer = get_object_or_404(Answer, id=answer_id, user__user=request.user)
+    question_id = answer.question.id
+    answer.delete()
+    return redirect('question', question_id=question_id)
