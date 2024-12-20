@@ -97,7 +97,7 @@ def login_view(request):
                     return redirect(request.GET['next'])
                 return redirect('index')
             else:
-                login_form.add_error(None, 'Invalid username or password')
+                login_form.add_error(None, 'Неправильный пароль или имя пользователя')
     else:
         login_form = LoginForm()
     return render(request, 'login.html', {'form': login_form})
@@ -117,8 +117,10 @@ def register(request):
                                                     email=register_form.cleaned_data['email'],
                                                     password=register_form.cleaned_data['password'])
                 new_user.save()
+                profile_img = register_form.cleaned_data.get('profile_img') or 'img/default_profile_pic.jpg'
+
                 Profile.objects.create_profile(new_user, register_form.cleaned_data['username'],
-                                               register_form.cleaned_data['profile_img'])
+                                               profile_img)
                 user = authenticate(request, username=register_form.cleaned_data['django_username'],
                                     password=register_form.cleaned_data['password'])
                 if user:
@@ -280,5 +282,8 @@ def edit_answer(request, answer_id):
 def delete_answer(request, answer_id):
     answer = get_object_or_404(Answer, id=answer_id, user__user=request.user)
     question_id = answer.question.id
+    question = get_object_or_404(Question, id=question_id)
+    question.answers_count -= 1
+    question.save()
     answer.delete()
     return redirect('question', question_id=question_id)
