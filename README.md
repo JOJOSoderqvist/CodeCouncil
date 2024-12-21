@@ -1,1 +1,1 @@
-# askme_karpikhin
+# CodeCouncil - приложение "вопрос-ответ" для IT-специалистов
